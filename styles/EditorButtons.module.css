@@ -1,0 +1,11 @@
+.button_container{
+    /* margin: auto; */
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.button_container > button{
+    color: black;
+}

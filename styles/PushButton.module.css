@@ -1,0 +1,12 @@
+.push_button{
+    /* color: black; */
+    color: rgb(49, 49, 49);
+    background-color: rgb(241, 220, 192);
+    border: none;
+    min-width: 90%;
+    min-height: 5vh;
+    margin-top: 20px;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
