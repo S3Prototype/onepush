@@ -1,8 +1,10 @@
 import pushStyles from '../styles/PushButton.module.css'
 
-function PushButton() {
+
+
+function PushButton({submit}) {
     return (
-        <button className={pushStyles.push_button}>
+        <button onClick={submit} className={pushStyles.push_button}>
             Push
         </button>
     )

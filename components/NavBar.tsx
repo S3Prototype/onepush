@@ -1,8 +1,6 @@
 import nav from '../styles/NavBar.module.css'
 
 function NavBar() {
-    const test:string= "hi"
-    console.log(test)
     return (
         <div className={nav.nav_container}>
             <nav className={nav.navbar}>
