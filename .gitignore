@@ -20,6 +20,7 @@
 *.pem
 thoughts.txt
 featurelist.txt
+todo.txt
 
 # debug
 npm-debug.log*

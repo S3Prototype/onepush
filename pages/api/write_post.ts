@@ -1,6 +1,9 @@
+import { write } from "node:fs"
+
 export default (req, res) => {
     // writeToMedium(req.body)
-    writeToDEV(req.body)
+    // writeToDEV(req.body)
+    writeToHashnode(req.body)
     res.status(200).json({ name: 'It worked' })
 }
 
@@ -61,37 +64,34 @@ function writeToMedium(query){
       .then(res=>console.log(res))
       .then(res=>console.log(res))
       
+}
 
-
-    // fetch('https://api.medium.com/v1', {
-    //     method: 'GET',
-    //     headers: { 
-    //         'Content-Type': 'application/json',
-    //         "Accept": "application/json",
-    //         "Accept-Charset": "utf-8",
-    //         "Host": "api.medium.com",
-    //         'Authorization': "Bearer "
-    //     }
-    // })
-        // body: JSON.stringify({
-        //   "query": `mutation createPublicationStory($input: CreateStoryInput!){ createPublicationStory(input: $input, publicationId: "hello1329"){ code success message } }`,
-        //   "variables": {
-        //     "input": {
-        //       "title": query.blogTitle,
-        //       "slug": "Test me!",
-        //       "contentMarkdown": query.blogText,
-        //       "tags": [
-        //         {
-        //           "_id": "",
-        //           "slug": "love",
-        //           "name": "Love"
-        //         }
-        //       ],
-        //       "coverImageURL": "https://cdn.hashnode.com/res/hashnode/image-dev/upload/v1562665620141/tc-h-erqF.jpeg",
-        //     }
-        //   }
-        // }),
-    //   })
-      .then(res => console.log(JSON.stringify(res)))
-      .catch(err=>console.log(err))
+function writeToHashnode(query){
+    fetch('https://api.hashnode.com', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': "1c2592d7-b24a-40d4-b86a-4c06edcc2187"
+        },
+        body: JSON.stringify({
+            query: "mutation createStory($input: CreateStoryInput!){ createStory(input: $input){ code success message } }",
+            variables: {
+                input: {
+                    title: "What are the e2e testing libraries you use ?",
+                    contentMarkdown: "I was wondering what e2e testing libaries do you use",
+                    tags: [
+                        {
+                            _id: "56744723958ef13879b9549b",
+                            slug: "testing",
+                            name: "Testing"
+                        }
+                    ],
+                    coverImageURL: "https://cdn.hashnode.com/res/hashnode/image-dev/upload/v1562665620141/tc-h-erqF.jpeg",
+                }
+            }
+        })
+      })
+    .then(res =>res.json())
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
 }
