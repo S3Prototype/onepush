@@ -1,11 +1,14 @@
 import nav from '../styles/NavBar.module.css'
 import {useState} from 'react'
-function NavBar() {
+function NavBar(props) {
 
     const [selectedButton, setSelectedButton] = useState('writeButton')
 
     function toggleSelected(e){
-        if(e.target.id !== selectedButton) setSelectedButton(e.target.id)
+        if(e.target.id !== selectedButton){
+            setSelectedButton(e.target.id)
+            props.changePage(e.target.id)
+        }
     }
 
     return (

@@ -3,7 +3,6 @@ import EditorButtons from '../components/EditorButtons'
 
 export default function Write(props) {
     return (
-        <>
             <div className={write.editor_container}>
                 <label htmlFor="blogTitle"></label>
                 <input name="blogTitle" id="blogTitle" type="text"
@@ -28,7 +27,6 @@ export default function Write(props) {
                 <input type="text" className={write.tags} name="tags" id="tags"
                 onChange={(e)=>props.updateBlogTags(e.target.value)}
                 />               
-            </div>            
-        </>
+            </div> 
     )
 }

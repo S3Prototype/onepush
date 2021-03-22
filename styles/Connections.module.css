@@ -1,0 +1,72 @@
+.connections_container{
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+    align-items: center;
+    row-gap: 30px;
+    justify-content: flex-start;
+    color: black;
+
+    max-height: 100vh;
+}
+
+.info{
+    padding: 10px;
+    margin-top: 20px;
+    color: inherit;
+    font-weight: bold;
+    border-style: dotted;
+    border-width: 2px;
+    border-color: #5e454b;
+    background-color: #cee5d0;
+}
+
+.warning{
+    color: #3fab9b;
+    font-weight: bold;
+}
+
+.connection{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.connection > label{
+    color: black;
+    text-align: center;
+}
+
+.token_input{
+    min-width: 100%;
+    max-width: 100%;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    background: none;
+    font-size: 18px;
+}
+
+.token_input:focus{
+    background-color: whitesmoke;
+    color: black;
+}
+
+.token_input::placeholder{
+    text-align: center;
+    color: #3fab9b;
+}
+
+.medium_connection{
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.medium_logo{
+    width: 200px;
+    background-image: url('https://res.cloudinary.com/diujqlncs/image/upload/v1616445904/onepush/medium_logo_ww8p96.png');
+}

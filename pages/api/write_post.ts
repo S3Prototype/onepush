@@ -3,7 +3,7 @@ import { write } from "node:fs"
 export default (req, res) => {
     // writeToMedium(req.body)
     // writeToDEV(req.body)
-    writeToHashnode(req.body)
+    // writeToHashnode(req.body)
     res.status(200).json({ name: 'It worked' })
 }
 
