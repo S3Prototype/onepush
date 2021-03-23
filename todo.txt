@@ -1,4 +1,5 @@
 * Add UI for letting users connect accounts through API keys.
 * Add UI for letting users see all their existing blog posts.
 * Allow them to edit their existing blog posts.
+    * Until this is implemented, along with the Socials page, just have those pages say "Coming soon!"
 * Now make the backend where they log in and their connections are stored.

@@ -38,6 +38,7 @@
 .blog_text_area{
     min-width: 100%;
     min-height: 550px;
+    max-height: 60vh;
     overflow-y: auto;
     color: black;
     padding: 10px;
