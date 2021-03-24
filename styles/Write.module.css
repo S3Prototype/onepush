@@ -3,7 +3,7 @@
     min-width: 90%;
     max-width: 90%;
 
-    min-height: 100vh;
+    max-height: 100vh;
 
     display: flex;
     flex-direction: column;
@@ -11,11 +11,50 @@
     align-items: center;
 
     row-gap: 10px;
+
+    color: black;
 }
 
 .editor_container > input{
     min-width: 100%;
     max-width: 100%;
+}
+
+.header_container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    align-items: center;
+}
+
+.previewImage{
+    max-width: 200px;
+}
+
+.image_upload_label{
+    background-color: #3fab9b;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.image_upload_button{
+    display: none;
+}
+
+.image_upload_button::selection{
+    background: none;
+}
+
+.upload_name{
+    color: black;
+    max-width: 80%;
+}
+
+.url_preview{
+    color: black;
+    font-size: 18px;
+    min-width: 100%;
 }
 
 .title_input{
@@ -25,6 +64,7 @@
     font-size: 20px;
     border-width: 0 0 1px 0;
     background: none;
+    text-align: center;
 }
 
 .title_input::placeholder{
@@ -32,12 +72,13 @@
 }
 
 .title_input:focus{
+    text-align: left;
     background: whitesmoke;
 }
 
 .blog_text_area{
     min-width: 100%;
-    min-height: 550px;
+    min-height: 50vh;
     max-height: 60vh;
     overflow-y: auto;
     color: black;
@@ -46,7 +87,6 @@
     background: none;
 }
 .blog_text_area::placeholder{
-    text-align: center;
     font-size: 20px;
 }
 
@@ -55,5 +95,11 @@
 }
 
 .tags{
+    color: black;
+    background: none;
+    font-size: 18px;
+}
 
+.tags:focus{
+    background-color: whitesmoke;
 }

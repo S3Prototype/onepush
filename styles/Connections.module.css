@@ -46,10 +46,13 @@
     border-width: 0 0 1px 0;
     background: none;
     font-size: 18px;
+    color: #3fab9b;
+    text-align: center;
 }
 
 .token_input:focus{
     background-color: whitesmoke;
+    text-align: left;
     color: black;
 }
 

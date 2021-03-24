@@ -1,5 +1,13 @@
-* Add UI for letting users connect accounts through API keys.
+* Add cover image.
+    * Make it so when you add a url, it auto-updates the preview image
+    * Then set it so when you upload an image, it clears the url field's text
+    * Then set it so when you put a url in, it clears the uploaded image.
 * Add UI for letting users see all their existing blog posts.
 * Allow them to edit their existing blog posts.
     * Until this is implemented, along with the Socials page, just have those pages say "Coming soon!"
 * Now make the backend where they log in and their connections are stored.
+
+
+3/23/21
+
+* Create tag support.

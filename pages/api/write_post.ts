@@ -1,18 +1,38 @@
-import { write } from "node:fs"
+export default async (req, res) => {
 
-export default (req, res) => {
-    // writeToMedium(req.body)
-    // writeToDEV(req.body)
-    // writeToHashnode(req.body)
-    res.status(200).json({ name: 'It worked' })
+    const messages = []
+    if(req.body.hashnodeKey)
+        try{
+            messages.push( await writeToHashnode(req.body) )
+        } catch(error){
+            messages.push(error)
+        }    
+    
+    if(req.body.mediumKey)
+        try{
+            messages.push( await writeToMedium(req.body) )
+        } catch(error){
+            messages.push(error)
+        }
+    
+    if(req.body.devKey)
+        try{
+            messages.push( await writeToDev(req.body) )
+        } catch(error){
+            messages.push(error)
+        }  
+
+    if(messages.length <= 0) messages.push("Error. For some reason, your blog did not post to any of the selected platforms.")
+
+    res.status(200).send(messages)
 }
 
-function writeToDEV(query){
+async function writeToDev(query){
     // console.log("DEV API", process.env.DEV_API_KEY)
     const myRequest = new Request(`https://dev.to/api/articles`, {
         method: 'POST',
         headers: { 
-            'api-key': '',
+            'api-key': `${query.devKey}`,
             'Content-Type': 'application/json'
         },
         // mode: 'cors',
@@ -22,31 +42,51 @@ function writeToDEV(query){
                 title: query.blogTitle,
                 published: true,
                 body_markdown: query.blogText,
-                tags: [
-                "discuss",
-                "help"
-                ],
-                series: "Hello series"
+                tags: query.blogTags,
+                series: "Onepush Series"
             }
         })
       })
 
-      fetch(myRequest)
-      .then(res=>console.log("DEV Result", res))
-      .then(res=>console.log(res))
+      try{
+          const result =  await fetch(myRequest)
+          return result
+      } catch(error){
+          return error
+      }
 }
 
-function writeToMedium(query){
-    // query.tags = convertToHashNodeTags(query.tags)
+async function writeToMedium(query){
 
-    const myRequest = new Request(`https://api.medium.com/v1/users/${process.env.MEDIUM_USER_ID}/posts`, {
+    if(!query.medium_user_id){
+        try{
+            const userData = await fetch(`https://api.medium.com/v1/me`, {
+                method: 'GET',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    "Accept": "application/json",
+                    "Accept-Charset": "utf-8",
+                    "Host": "api.medium.com",
+                    'Authorization': `Bearer ${query.mediumKey}`
+                }
+            })
+
+            const responseData = await userData.json()
+            query.medium_user_id = responseData.data.id
+        } catch(error){
+            return error
+        }
+    }
+
+
+    const myRequest = new Request(`https://api.medium.com/v1/users/${query.medium_user_id}/posts`, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
             "Accept": "application/json",
             "Accept-Charset": "utf-8",
             "Host": "api.medium.com",
-            'Authorization': `Bearer ${process.env.MEDIUM_API_KEY}`
+            'Authorization': `Bearer ${query.mediumKey}`
         },
         mode: 'cors',
         cache: 'default',
@@ -55,43 +95,50 @@ function writeToMedium(query){
             contentFormat: "markdown",
             content: query.blogText,
             // canonicalUrl: `http://shaquilhansford.medium.com/posts/${query.blogTitle.replace(/\s/g, '-')}`,
-            tags: ["webdev", "tech", "buildinpublic"],
+            tags: query.blogTags,
             publishStatus: "public"
-          })
-      })
+        })
+    })
 
-      fetch(myRequest)
-      .then(res=>console.log(res))
-      .then(res=>console.log(res))
-      
+    try{
+        const postRequest = await fetch(myRequest)              
+        return await postRequest.json()
+    } catch(error){
+        console.log("Medium is breaking")
+        return error
+    }      
 }
 
-function writeToHashnode(query){
-    fetch('https://api.hashnode.com', {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': "1c2592d7-b24a-40d4-b86a-4c06edcc2187"
-        },
-        body: JSON.stringify({
-            query: "mutation createStory($input: CreateStoryInput!){ createStory(input: $input){ code success message } }",
-            variables: {
-                input: {
-                    title: "What are the e2e testing libraries you use ?",
-                    contentMarkdown: "I was wondering what e2e testing libaries do you use",
-                    tags: [
-                        {
+async function writeToHashnode(query){
+    try{
+        const result = await fetch('https://api.hashnode.com', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `${query.hashnodeKey}`
+            },
+            body: JSON.stringify({
+                query: "mutation createStory($input: CreateStoryInput!){ createStory(input: $input){ code success message } }",
+                variables: {
+                    input: {
+                        title: query.blogTitle,
+                        contentMarkdown: query.blogText,
+                        tags: query.blogTags.map(tag=>{
+                            return {
                             _id: "56744723958ef13879b9549b",
-                            slug: "testing",
-                            name: "Testing"
-                        }
-                    ],
-                    coverImageURL: "https://cdn.hashnode.com/res/hashnode/image-dev/upload/v1562665620141/tc-h-erqF.jpeg",
+                            slug: tag,
+                            name: tag
+                            }
+                        }),
+                        coverImageURL: "https://cdn.hashnode.com/res/hashnode/image-dev/upload/v1562665620141/tc-h-erqF.jpeg",
+                    }
                 }
-            }
+            })
         })
-      })
-    .then(res =>res.json())
-    .then(res=>console.log(res))
-    .catch(err=>console.log(err))
+
+        return await result.json()
+        
+    } catch(error){
+        return error
+    }
 }
