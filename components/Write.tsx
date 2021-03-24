@@ -12,16 +12,23 @@ export default function Write(props) {
         titleRef.current.value = props.prev.title.current
         subTitleRef.current.value = props.prev.subTitle.current
         tagRef.current.value = props.prev.tags.current
+
+        if(props.prev.headerUrl.current)
+            addHeaderUrl(props.prev.headerUrl.current)
+                
+        if(props.prev.headerFile.current)
+            addHeaderFile(props.prev.headerFile.current)
+
             //Tags are complicated, because the state stores
             //an array, not a string. I think.
     }, [])
 
     const [previewImageSrc, setPreviewImageSrc] = useState('')
 
-    const imagePreviewRef = useRef('')
-
+    const imagePreviewRef = useRef(null)
+    const urlPreviewRef = useRef(null)
     function loadFile(e) {
-        setPreviewImageSrc(URL.createObjectURL(e.target.files[0]));
+        addHeaderFile(e.target.files[0])
     }
 
     function freeImageMemory(){
@@ -32,10 +39,36 @@ export default function Write(props) {
         imagePreviewRef.current.click()
     }
 
+    function setUrlPreviewImage(e){
+        if(!e.target.value.includes('http') ||
+            !e.target.value.includes('.')){
+                return
+        }
+        addHeaderUrl(e.target.value)
+    }
+
+    function addHeaderFile(file){        
+        console.log(file)
+        setPreviewImageSrc(URL.createObjectURL(file));
+        props.update.headerFile(file)        
+        props.update.headerUrl('')
+        urlPreviewRef.current.value = ''
+    }
+
+    function addHeaderUrl(url){
+        setPreviewImageSrc(url)
+        props.update.headerUrl(url)
+        props.update.headerFile(null)
+        urlPreviewRef.current.value = url
+    }
+
     return (
             <div className={write.editor_container}>
                 <div className={write.header_container}>
                     <img className={write.previewImage} onLoad={freeImageMemory} src={previewImageSrc}  id="preview"></img>
+
+                    <span className={write.upload_name}>{previewImageSrc ? "" : "No image set."}</span>
+
                     <form>
                         <label onClick={changeImageUpload} className={write.image_upload_label} htmlFor="image_upload">Click Here to Upload Your Header Image
                             <input className={write.image_upload_button} onChange={loadFile} type="file" ref={imagePreviewRef} id="imageUpload" name="image_upload" accept="image/*">                        
@@ -43,9 +76,8 @@ export default function Write(props) {
                         </label>
                     </form>
 
-                    {/* <span className={write.upload_name}>{previewImageSrc}</span> */}
-
-                    <input className={write.url_preview} placeholder="Or use a url for your header image instead.">
+                    <input ref={urlPreviewRef} className={write.url_preview_input} placeholder="Or use a url for your header image instead."
+                    onChange={setUrlPreviewImage}>
                     </input>
                 </div>
 
@@ -53,14 +85,14 @@ export default function Write(props) {
                 <input name="blogTitle" id="blogTitle" type="text"
                 className={write.title_input}
                 placeholder="Title"
-                onInput={(e)=>props.updateBlogTitle(e.target.value)}
+                onInput={(e)=>props.update.blogTitle(e.target.value)}
                 ref={titleRef}
                 />
 
                 <input type="text" name="blogSubTitle"
                 className={write.title_input} id="blogSubTitle"
                 placeholder="Subtitle"
-                onChange={(e)=>props.updateBlogSubTitle(e.target.value)}
+                onChange={(e)=>props.update.blogSubTitle(e.target.value)}
                 ref={subTitleRef}
                 />
                 
@@ -68,7 +100,7 @@ export default function Write(props) {
                 
                 <textarea className={write.blog_text_area}
                     placeholder="Write your message for the world."
-                    onChange={(e)=>props.updateBlogText(e.target.value)}
+                    onChange={(e)=>props.update.blogText(e.target.value)}
                     ref={textRef}
                 >
                 </textarea>
@@ -76,7 +108,7 @@ export default function Write(props) {
                 <input type="text" className={write.tags} name="tags" id="tags"
                     ref={tagRef}
                     placeholder="Add your tags, separated by commas"
-                    onChange={(e)=>props.updateBlogTags(e.target.value)}
+                    onChange={(e)=>props.update.blogTags(e.target.value)}
                 />               
             </div> 
     )

@@ -13,11 +13,17 @@ export default function Home() {
   function showPage(){
     switch(pageToShow){
       case "write":
-        return <Write 
-          updateBlogText={setBlogText}
-          updateBlogTitle={setBlogTitle}
-          updateBlogSubTitle={setBlogSubTitle}
-          updateBlogTags={parseAndSetTags}
+        return <Write
+          update={
+            {
+              blogText: setBlogText,
+              blogTitle: setBlogTitle,
+              blogSubTitle: setBlogSubTitle,
+              blogTags: parseAndSetTags,
+              headerFile: setHeaderFile,
+              headerUrl: setHeaderUrl
+            }
+          } 
           prev={prev}
         />
       
@@ -59,12 +65,17 @@ export default function Home() {
   const [blogTitle, setBlogTitle] = useState("")
   const [blogSubTitle, setBlogSubTitle] = useState("")
   const [blogTags, setBlogTags] = useState([])
+  
+  const [headerFile, setHeaderFile] = useState(null)
+  const [headerUrl, setHeaderUrl] = useState('')
 
   const prev = {
     text: useRef(''),
     title: useRef(''),
     subTitle: useRef(''),
     tags: useRef(''),
+    headerFile: useRef(null),
+    headerUrl: useRef('')
   }
 
   useEffect(()=>{
@@ -72,7 +83,10 @@ export default function Home() {
     prev.title.current = blogTitle
     prev.subTitle.current = blogSubTitle
     prev.tags.current = blogTags.join(', ')
-  }, [blogText, blogTitle, blogSubTitle, blogTags])
+    prev.headerFile.current = headerFile
+    prev.headerUrl.current = headerUrl
+  })
+  // }, [blogText, blogTitle, blogSubTitle, blogTags])
 
   function parseAndSetTags(rawTagText){
     // console.log(`Raw tags are: ${rawTagText}`)
@@ -104,6 +118,8 @@ export default function Home() {
         blogText,
         blogSubTitle,
         blogTags,
+        headerFile,
+        headerUrl,
 
         devKey,
         mediumKey,

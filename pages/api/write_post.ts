@@ -1,5 +1,12 @@
 export default async (req, res) => {
 
+    //Check if the body has a headerfile.
+    //If so, upload it to the server.
+    //Also, when you send back the result, send the
+    //file url. On the client side, set that url
+    //as the new value for for headerUrl and
+    //update the state for previewImageSrc to this
+    //generated url
     const messages = []
     if(req.body.hashnodeKey)
         try{
