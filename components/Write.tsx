@@ -28,7 +28,8 @@ export default function Write(props) {
     const imagePreviewRef = useRef(null)
     const urlPreviewRef = useRef(null)
     function loadFile(e) {
-        addHeaderFile(e.target.files[0])
+        if(e.target.files.length > 0)
+            addHeaderFile(e.target.files[0])
     }
 
     function freeImageMemory(){
@@ -40,10 +41,10 @@ export default function Write(props) {
     }
 
     function setUrlPreviewImage(e){
-        if(!e.target.value.includes('http') ||
-            !e.target.value.includes('.')){
-                return
-        }
+        // if(!e.target.value.includes('http') ||
+        //     !e.target.value.includes('.')){
+        //         return
+        // }
         addHeaderUrl(e.target.value)
     }
 
@@ -69,14 +70,14 @@ export default function Write(props) {
 
                     <span className={write.upload_name}>{previewImageSrc ? "" : "No image set."}</span>
 
-                    <form>
+                    {/* <form>
                         <label onClick={changeImageUpload} className={write.image_upload_label} htmlFor="image_upload">Click Here to Upload Your Header Image
                             <input className={write.image_upload_button} onChange={loadFile} type="file" ref={imagePreviewRef} id="imageUpload" name="image_upload" accept="image/*">                        
                             </input>
                         </label>
-                    </form>
+                    </form> */}
 
-                    <input ref={urlPreviewRef} className={write.url_preview_input} placeholder="Or use a url for your header image instead."
+                    <input ref={urlPreviewRef} className={write.url_preview_input} placeholder="Paste the url for your header image."
                     onChange={setUrlPreviewImage}>
                     </input>
                 </div>

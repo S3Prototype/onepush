@@ -3,6 +3,8 @@ import Write from '../components/Write.tsx'
 import PushButton from '../components/PushButton.tsx'
 import {useRef, useEffect, useState} from 'react'
 import Connections from '../components/Connections'
+import { updateRestTypeNode } from 'typescript'
+import Preview from '../components/Preview'
 // import hashnode from '../components/hashnode'
 
 
@@ -20,7 +22,7 @@ export default function Home() {
               blogTitle: setBlogTitle,
               blogSubTitle: setBlogSubTitle,
               blogTags: parseAndSetTags,
-              headerFile: setHeaderFile,
+              headerFile: parseAndSetHeaderFile,
               headerUrl: setHeaderUrl
             }
           } 
@@ -34,9 +36,36 @@ export default function Home() {
           updateMediumKey={setMediumKey}
           updateHashnodeKey={setHashnodeKey}
         />
+
+      case "preview":
+          return <Preview 
+            info={
+              {
+                blogText,
+                blogTitle,
+                blogSubTitle,
+                blogTags,
+                headerUrl
+              }
+            }              
+          />
     }
 
     return null
+  }
+
+  function parseAndSetHeaderFile(file){
+    if(!file || file.length <= 0 ){
+      prev.headerFileName.current = ''
+      return
+    }
+
+    console.log(file.name)
+    const formData = new FormData()
+    formData.append('image', file)
+    prev.headerFileType.current = file.type
+    prev.headerFileName.current = file.name
+    setHeaderFile(formData)
   }
 
   function changePage(rawPageName){
@@ -75,7 +104,9 @@ export default function Home() {
     subTitle: useRef(''),
     tags: useRef(''),
     headerFile: useRef(null),
-    headerUrl: useRef('')
+    headerUrl: useRef(''),
+    headerFileName: useRef(''),
+    headerFileType: useRef('')
   }
 
   useEffect(()=>{
@@ -109,7 +140,8 @@ export default function Home() {
     console.log(blogTags)
   }
 
-  function makePost(){
+  async function makePost(){
+
     fetch('/api/write_post', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
@@ -118,7 +150,9 @@ export default function Home() {
         blogText,
         blogSubTitle,
         blogTags,
+
         headerFile,
+        headerFileName: prev.headerFileName.current,
         headerUrl,
 
         devKey,

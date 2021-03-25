@@ -1,13 +1,9 @@
 export default async (req, res) => {
-
-    //Check if the body has a headerfile.
-    //If so, upload it to the server.
-    //Also, when you send back the result, send the
-    //file url. On the client side, set that url
-    //as the new value for for headerUrl and
-    //update the state for previewImageSrc to this
-    //generated url
     const messages = []
+
+    req.body.headerAndContent = `![Cover Image/Header Image: ${query.blogTitle}](${query.headerUrl})<br>query.blogText`,
+            
+
     if(req.body.hashnodeKey)
         try{
             messages.push( await writeToHashnode(req.body) )
@@ -48,7 +44,7 @@ async function writeToDev(query){
             article: {
                 title: query.blogTitle,
                 published: true,
-                body_markdown: query.blogText,
+                body_markdown: query.headerAndContent,
                 tags: query.blogTags,
                 series: "Onepush Series"
             }
@@ -100,7 +96,7 @@ async function writeToMedium(query){
         body: JSON.stringify({
             title: query.blogTitle,
             contentFormat: "markdown",
-            content: query.blogText,
+            content: query.headerAndContent,
             // canonicalUrl: `http://shaquilhansford.medium.com/posts/${query.blogTitle.replace(/\s/g, '-')}`,
             tags: query.blogTags,
             publishStatus: "public"
@@ -137,7 +133,7 @@ async function writeToHashnode(query){
                             name: tag
                             }
                         }),
-                        coverImageURL: "https://cdn.hashnode.com/res/hashnode/image-dev/upload/v1562665620141/tc-h-erqF.jpeg",
+                        coverImageURL: query.headerUrl,
                     }
                 }
             })

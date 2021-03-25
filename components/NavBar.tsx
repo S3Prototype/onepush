@@ -18,6 +18,11 @@ function NavBar(props) {
                     selectedButton === "writeButton" ? nav.selected : ''}
                 >
                     Write
+                </button>
+                <button id="previewButton" className={
+                    selectedButton === "previewButton" ? nav.selected : ''}
+                >
+                    Preview
                 </button>                
                 <button id="connectionsButton" className={
                     selectedButton === "connectionsButton" ? nav.selected : ''}
@@ -28,11 +33,6 @@ function NavBar(props) {
                     selectedButton === "blogsButton" ? nav.selected : ''}
                 >
                     Blogs
-                </button>
-                <button id="socialsButton" className={
-                    selectedButton === "socialsButton" ? nav.selected : ''}
-                >
-                    Socials
                 </button>
             </nav>
         </div>

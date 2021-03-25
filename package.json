@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@types/node": "^14.14.35",
-    "@types/react": "^17.0.3"
+    "@types/react": "^17.0.3",
+    "showdown": "^1.9.1"
   }
 }

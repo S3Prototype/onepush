@@ -1,14 +1,18 @@
+* Add UI for letting users see all their existing blog posts.
+* maybe add a preview?
+* Allow them to edit their existing blog posts.
+    * Until this is implemented, along with the Socials page, just have those pages say "Coming soon!"
+* Now make the backend where they log in and their connections are stored.
+
+3/25/21
 * Add cover image.
+    ** Decided to scrap file uploads for a later time.
     * Do file uploads
         * Generate a filename
             * Combine blog post title + 'header'
         * Get access to the file type, so you can send it in the fetch request.
         * Return to the client the url to the client.
         * Set the url in the fetch request to the blogs.
-* Add UI for letting users see all their existing blog posts.
-* Allow them to edit their existing blog posts.
-    * Until this is implemented, along with the Socials page, just have those pages say "Coming soon!"
-* Now make the backend where they log in and their connections are stored.
 
 3/24/21
     * Make it so when you add a url, it auto-updates the preview image

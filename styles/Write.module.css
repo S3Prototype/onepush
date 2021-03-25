@@ -26,6 +26,7 @@
     row-gap: 20px;
 
     align-items: center;
+    min-width: 100%;
 }
 
 .previewImage{
@@ -53,8 +54,21 @@
 
 .url_preview_input{
     color: black;
-    font-size: 18px;
     min-width: 100%;
+    background: none;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    font-size: 20px;
+}
+
+.url_preview_input::placeholder{
+    /* font-size: 20px; */
+    text-align: center;
+}
+
+.url_preview_input:focus{
+    text-align: left;
+    background: whitesmoke;
 }
 
 .title_input{
