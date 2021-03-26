@@ -1,10 +1,12 @@
-* Add UI for letting users see all their existing blog posts.
-* maybe add a preview?
-* Allow them to edit their existing blog posts.
-    * Until this is implemented, along with the Socials page, just have those pages say "Coming soon!"
 * Now make the backend where they log in and their connections are stored.
+    * Also save them to local storage.
+    * Whenever push is pressed, or "connections" is entered, check if we have the connection info. If not, check local storage. If not there, pull from the backend. If not logged in, request user login.
+* Users have to login/register to even use the app.
+    * In its beta form, app is free. When launched, should cost $4.99/mo
+* Backend on digitalocean (or render.com? Should not need very much overhead at all for simple login/logout procedures. Will be storing data in mongodb cluster.
 
 3/25/21
+* Add a preview
 * Add cover image.
     ** Decided to scrap file uploads for a later time.
     * Do file uploads
@@ -13,6 +15,11 @@
         * Get access to the file type, so you can send it in the fetch request.
         * Return to the client the url to the client.
         * Set the url in the fetch request to the blogs.
+
+* Add UI for letting users see all their existing blog posts.
+    ** Turns outyou can't edit your blog posts through any of the API's.
+* Allow them to edit their existing blog posts.
+    * Until this is implemented, along with the Socials page, just have those pages say "Coming soon!"
 
 3/24/21
     * Make it so when you add a url, it auto-updates the preview image

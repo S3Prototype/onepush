@@ -24,14 +24,15 @@ function Preview({info}) {
                     }
                 >
                 </h1>                
-                <span
-                    className={previewStyles.text}
+                <h2
+                    className={previewStyles.sub_title} 
                     dangerouslySetInnerHTML={
                         { __html: converter.makeHtml(info.blogSubTitle) }
                     }
                 >
-                </span>             
+                </h2>             
                 <span 
+                    className={previewStyles.text}
                     dangerouslySetInnerHTML={
                         { __html: converter.makeHtml(info.blogText) }
                     }

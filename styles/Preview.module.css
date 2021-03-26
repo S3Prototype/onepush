@@ -19,15 +19,58 @@
     row-gap: 20px;
 }
 
-.container img{
-}
-
-.text{
+.container > img{
     max-width: 100%;
-    background-color: blue;
 }
 
 .title{
     text-align: center;
     margin-bottom: -10px;
+}
+
+.title > p {
+    color: black;
+}
+
+.sub_title{
+    color: black;
+    margin: 0;
+}
+
+.sub_title > p {
+    color: black;
+}
+
+.text{
+    max-width: 100%;
+}
+
+.text > p > img{
+    max-width: 100%;
+    display: block;
+    margin: auto;
+}
+
+.text > p {
+color: black;
+text-indent: 10px;
+margin-bottom: 1em;
+/* font-weight: bold; */
+}
+
+.text > h1, .text > h2, .text > h3, .text > h4, .text > h5, .text > h6{
+    margin-bottom: 1em;
+    color: black;
+  }
+
+.text > p > em{
+color: black;
+}
+
+.text > p > strong{
+color: black;
+}
+
+.text > p > a{
+color: black;
 }

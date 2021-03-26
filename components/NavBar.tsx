@@ -29,11 +29,11 @@ function NavBar(props) {
                 >
                     Connections
                 </button>
-                <button id="blogsButton" className={
+                {/* <button id="blogsButton" className={
                     selectedButton === "blogsButton" ? nav.selected : ''}
                 >
                     Blogs
-                </button>
+                </button> */}
             </nav>
         </div>
     )

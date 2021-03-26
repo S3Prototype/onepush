@@ -10,7 +10,7 @@ export default function Write(props) {
     useEffect(()=>{
         textRef.current.value = props.prev.text.current
         titleRef.current.value = props.prev.title.current
-        subTitleRef.current.value = props.prev.subTitle.current
+        // subTitleRef.current.value = props.prev.subTitle.current
         tagRef.current.value = props.prev.tags.current
 
         if(props.prev.headerUrl.current)
@@ -90,14 +90,14 @@ export default function Write(props) {
                 ref={titleRef}
                 />
 
-                <input type="text" name="blogSubTitle"
+                {/* <input type="text" name="blogSubTitle" id="subtitle"
                 className={write.title_input} id="blogSubTitle"
                 placeholder="Subtitle"
                 onChange={(e)=>props.update.blogSubTitle(e.target.value)}
                 ref={subTitleRef}
-                />
+                /> */}
                 
-                <EditorButtons/>
+                {/* <EditorButtons/> */}
                 
                 <textarea className={write.blog_text_area}
                     placeholder="Write your message for the world."
