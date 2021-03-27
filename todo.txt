@@ -1,9 +1,23 @@
-* Now make the backend where they log in and their connections are stored.
-    * Also save them to local storage.
-    * Whenever push is pressed, or "connections" is entered, check if we have the connection info. If not, check local storage. If not there, pull from the backend. If not logged in, request user login.
-* Users have to login/register to even use the app.
-    * In its beta form, app is free. When launched, should cost $4.99/mo
+* Add tags to preview, under where subtitles would go.
+* Add checkbox next to each connection, so users can toggle them on/off
+* Add a list at the top of the Write page that shows what connections are active. pressing one should deactivate it.
+* Make a popup modal for after you hit push. "Pushing to -[list of selected options]. Please wait."
+* When it's done, if any errors, print them. Otherwise say, "Successfully posted to -[each thing that was a success]"
+    * If you can get the url, that would be great.
+*Users have to press "okay" to get out of the modal."
+* Instead of creating the user login stuff, how bout instead just use localstorage?
+    * Now make the backend where they log in and their connections are stored.
+        * Also save them to local storage.
+        * Whenever push is pressed, or "connections" is entered, check if we have the connection info. If not, check local storage. If not there, pull from the backend. If not logged in, request user login.
+    * Users have to login/register to even use the app.
+        * In its beta form, app is free. When launched, should cost $4.99/mo
 * Backend on digitalocean (or render.com? Should not need very much overhead at all for simple login/logout procedures. Will be storing data in mongodb cluster.
+* Integrate wordpress connection (maybe)
+
+3/26/21
+* Integrate ghost cms
+    ** Holy shit was that hard.
+* 
 
 3/25/21
 * Add a preview

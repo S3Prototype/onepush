@@ -32,9 +32,11 @@ export default function Home() {
       case "connections":
         return <Connections
           apiKeys={apiKeys}
-          updateDevKey={setDevKey}
-          updateMediumKey={setMediumKey}
-          updateHashnodeKey={setHashnodeKey}
+          updateDevKey={valObject=>setKeyData(valObject, setDevKey)}
+          updateMediumKey={valObject=>setKeyData(valObject, setMediumKey)}
+          updateHashnodeKey={valObject=>setKeyData(valObject, setHashnodeKey)}
+          updateGhostKey={valObject=>setKeyData(valObject, setGhostKey)}
+          updateGhostUrl={valObject=>setKeyData(valObject, setGhostUrl)}
         />
 
       case "preview":
@@ -52,6 +54,11 @@ export default function Home() {
     }
 
     return null
+  }
+
+  function setKeyData(val, setterMethod){
+    localStorage.setItem(val.name, val.value)
+    setterMethod(val.value)
   }
 
   function parseAndSetHeaderFile(file){
@@ -75,19 +82,30 @@ export default function Home() {
   const [devKey, setDevKey] = useState('')
   const [mediumKey, setMediumKey] = useState('')
   const [hashnodeKey, setHashnodeKey] = useState('')
+  const [ghostKey, setGhostKey] = useState('')
+  const [ghostUrl, setGhostUrl] = useState('')
 
   const apiKeys = {
     dev: useRef(''),
     medium: useRef(''),
     hashnode: useRef(''),
+    ghostKey: useRef(''),
+    ghostUrl: useRef(''),
   }
 
   useEffect(()=>{
-    apiKeys.dev.current = devKey
-    apiKeys.medium.current = mediumKey
-    apiKeys.hashnode.current = hashnodeKey
 
-  }, [devKey, mediumKey, hashnodeKey])
+    apiKeys.dev.current = devKey
+    
+    apiKeys.medium.current = mediumKey
+    
+    apiKeys.hashnode.current = hashnodeKey
+    
+    apiKeys.ghostKey.current = ghostKey
+    
+    apiKeys.ghostUrl.current = ghostUrl    
+
+}, [devKey, mediumKey, hashnodeKey, ghostKey, ghostUrl])
 
 
   const [blogText, setBlogText] = useState("")
@@ -106,16 +124,24 @@ export default function Home() {
     headerFile: useRef(null),
     headerUrl: useRef(''),
     headerFileName: useRef(''),
-    headerFileType: useRef('')
+    headerFileType: useRef(''),
+    headerAndBlogText: useRef('')
   }
 
   useEffect(()=>{
+    if(typeof window === "undefined") return
+
     prev.text.current = blogText
     prev.title.current = blogTitle
     prev.subTitle.current = blogSubTitle
     prev.tags.current = blogTags.join(', ')
     prev.headerFile.current = headerFile
     prev.headerUrl.current = headerUrl
+    prev.headerAndBlogText.current = 
+      `![Cover Image/Header Image for 
+        ${blogTitle}](${headerUrl})
+        <br>${blogText}`
+    
   })
   // }, [blogText, blogTitle, blogSubTitle, blogTags])
 
@@ -142,9 +168,10 @@ export default function Home() {
 
   async function makePost(){
 
-    fetch('/api/write_post', {
+    fetch('http://localhost:2100/api/write', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
+      mode: 'cors',
       body: JSON.stringify({
         blogTitle,
         blogText,
@@ -154,13 +181,17 @@ export default function Home() {
         headerFile,
         headerFileName: prev.headerFileName.current,
         headerUrl,
+        headerAndBlogText: prev.headerAndBlogText.current, 
 
         devKey,
         mediumKey,
-        hashnodeKey
+        hashnodeKey,
+        ghostUrl,
+        ghostKey
       }),
     })
-    .then(res => res.json())
+    .catch(err=>console.log(err))
+    // .then(res => res.json())
     .then(res => console.log(JSON.stringify(res)))
   }
 

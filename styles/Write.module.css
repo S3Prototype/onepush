@@ -68,7 +68,6 @@
 }
 
 .url_preview_input:focus{
-    text-align: left;
     background: whitesmoke;
 }
 
@@ -100,6 +99,7 @@
     padding: 10px;
     font-size: 20px;
     background: none;
+    resize: none;
 }
 .blog_text_area::placeholder{
     font-size: 20px;
@@ -113,6 +113,7 @@
 .tags{
     color: black;
     background: none;
+    border-width: 0 0 1px 0;
     font-size: 18px;
 }
 

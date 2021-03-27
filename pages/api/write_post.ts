@@ -1,7 +1,5 @@
 export default async (req, res) => {
     const messages = []
-
-    req.body.headerAndContent = `![Cover Image/Header Image: ${query.blogTitle}](${query.headerUrl})<br>query.blogText`,
             
 
     if(req.body.hashnodeKey)
@@ -28,6 +26,22 @@ export default async (req, res) => {
     if(messages.length <= 0) messages.push("Error. For some reason, your blog did not post to any of the selected platforms.")
 
     res.status(200).send(messages)
+}
+
+async function writeToGhost(query){
+    const ghostResult = await fetch(
+        'https://shaquil-hansford-test-site.ghost.io',
+        {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                "Accept": "application/json",
+                "Accept-Charset": "utf-8",
+                "Host": "api.medium.com",
+                'Authorization': `Bearer ${query.mediumKey}`
+            }
+        }
+    )
 }
 
 async function writeToDev(query){

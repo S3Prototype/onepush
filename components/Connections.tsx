@@ -6,11 +6,25 @@ function Connections(props) {
     const hashnodeRef = useRef('')
     const devRef = useRef('')
     const mediumRef = useRef('')
+    const ghostKeyRef = useRef('')
+    const ghostUrlRef = useRef('')
 
-    useEffect(()=>{
-        hashnodeRef.current.value = props.apiKeys.hashnode.current
-        devRef.current.value = props.apiKeys.dev.current
-        mediumRef.current.value = props.apiKeys.medium.current
+    useEffect(()=>{        
+        if(typeof window === 'undefined') return
+
+        hashnodeRef.current.value = localStorage.getItem('hashnodeKey') || props.apiKeys.hashnode.current
+        
+        devRef.current.value =
+            props.apiKeys.dev.current || localStorage.getItem('devKey')
+        
+        mediumRef.current.value =
+            props.apiKeys.medium.current || localStorage.getItem('mediumKey')
+        
+        ghostKeyRef.current.value =
+            props.apiKeys.ghostKey.current || localStorage.getItem('ghostKey')
+        
+        ghostUrlRef.current.value =
+            props.apiKeys.ghostUrl.current || localStorage.getItem('ghostUrl')
     }, [])
     
     return (
@@ -25,8 +39,11 @@ function Connections(props) {
                 <input className={cStyles.token_input}
                 placeholder="Enter your hashnode API Key here." name="hashnode_connection" 
                 ref={hashnodeRef}
-                onChange={(e)=>props.updateHashnodeKey(e.target.value)}
-                type="text">                    
+                onChange={(e)=>props.updateHashnodeKey({
+                    name: 'hashnodeKey',
+                    value: e.target.value
+                })}
+                type="password">                    
                 </input>
             </div>
             
@@ -36,8 +53,11 @@ function Connections(props) {
                 <input className={cStyles.token_input} 
                 placeholder="Enter your DEV API Key here." 
                 ref={devRef}
-                onChange={(e)=>props.updateDevKey(e.target.value)}
-                name="dev_connection" type="text"></input>
+                onChange={(e)=>props.updateDevKey({
+                    name: 'devKey',
+                    value: e.target.value
+                })}
+                name="dev_connection" type="password"></input>
             </div>
             
             <div className={cStyles.connection}>
@@ -46,8 +66,37 @@ function Connections(props) {
                 <input className={cStyles.token_input} 
                 placeholder="Enter your Medium API Key here." 
                 ref={mediumRef}
-                onChange={(e)=>props.updateMediumKey(e.target.value)}
-                name="medium_connection" type="text"></input>
+                onChange={(e)=>props.updateMediumKey({
+                    name: 'mediumKey',
+                    value: e.target.value
+                })}
+                name="medium_connection" type="password"></input>
+            </div>
+                        
+            <div className={cStyles.connection}>
+                <label htmlFor="ghost_url_connection">Ghost API URL:
+                </label>                                
+                <input className={cStyles.token_input} 
+                placeholder="Enter your Ghost API URL here." 
+                ref={ghostUrlRef}
+                onChange={(e)=>props.updateGhostUrl({
+                    name: 'ghostUrl',
+                    value: e.target.value
+                })}
+                name="ghost_url_connection" type="text"></input>
+            </div>
+
+            <div className={cStyles.connection}>
+                <label htmlFor="ghost_connection">Ghost Key/Token:
+                </label>                                
+                <input className={cStyles.token_input} 
+                placeholder="Enter your Ghost Admin API Key here." 
+                ref={ghostKeyRef}
+                onChange={(e)=>props.updateGhostKey({
+                    name: 'ghostKey',
+                    value: e.target.value
+                })}
+                name="ghost_connection" type="password"></input>
             </div>
         </div>
     )
