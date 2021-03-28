@@ -8,6 +8,34 @@
     color: black;
 
     max-height: 100vh;
+    margin-bottom: 30px;
+}
+
+.input_container{
+    min-width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    max-width: 100%;
+}
+
+.api_setting{
+    min-width: 100%;
+    max-width: 100%;
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.api_setting > label{
+    color: inherit;
+}
+
+.api_active{
+    color: #3fab9b;
 }
 
 .info{

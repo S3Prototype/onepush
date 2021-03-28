@@ -5,6 +5,7 @@ import {useRef, useEffect, useState} from 'react'
 import Connections from '../components/Connections'
 import { updateRestTypeNode } from 'typescript'
 import Preview from '../components/Preview'
+import PushModal from '../components/PushModal'
 // import hashnode from '../components/hashnode'
 
 
@@ -32,11 +33,16 @@ export default function Home() {
       case "connections":
         return <Connections
           apiKeys={apiKeys}
+          checkedBoxes={activeBlogs}
           updateDevKey={valObject=>setKeyData(valObject, setDevKey)}
           updateMediumKey={valObject=>setKeyData(valObject, setMediumKey)}
           updateHashnodeKey={valObject=>setKeyData(valObject, setHashnodeKey)}
           updateGhostKey={valObject=>setKeyData(valObject, setGhostKey)}
           updateGhostUrl={valObject=>setKeyData(valObject, setGhostUrl)}
+          updateCheckedBoxes={checkedArray=>{
+              setActiveBlogs(checkedArray)
+              localStorage.setItem('checkedBoxes', checkedArray.toString())
+          }}
         />
 
       case "preview":
@@ -85,6 +91,8 @@ export default function Home() {
   const [ghostKey, setGhostKey] = useState('')
   const [ghostUrl, setGhostUrl] = useState('')
 
+  const [activeBlogs, setActiveBlogs] = useState([])
+
   const apiKeys = {
     dev: useRef(''),
     medium: useRef(''),
@@ -94,10 +102,11 @@ export default function Home() {
   }
 
   useEffect(()=>{
-
     apiKeys.dev.current = devKey
     
     apiKeys.medium.current = mediumKey
+    
+    console.log("Index.js use effect, medium key", mediumKey)
     
     apiKeys.hashnode.current = hashnodeKey
     
@@ -125,7 +134,7 @@ export default function Home() {
     headerUrl: useRef(''),
     headerFileName: useRef(''),
     headerFileType: useRef(''),
-    headerAndBlogText: useRef('')
+    headerAndBlogText: useRef(''),
   }
 
   useEffect(()=>{
@@ -135,13 +144,13 @@ export default function Home() {
     prev.title.current = blogTitle
     prev.subTitle.current = blogSubTitle
     prev.tags.current = blogTags.join(', ')
+    
     prev.headerFile.current = headerFile
     prev.headerUrl.current = headerUrl
     prev.headerAndBlogText.current = 
       `![Cover Image/Header Image for 
         ${blogTitle}](${headerUrl})
         <br>${blogText}`
-    
   })
   // }, [blogText, blogTitle, blogSubTitle, blogTags])
 
@@ -167,49 +176,75 @@ export default function Home() {
   }
 
   async function makePost(){
+    setPushModalActive(true)
+    setPushResult(null)
 
-    fetch('http://localhost:2100/api/write', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
-      mode: 'cors',
-      body: JSON.stringify({
-        blogTitle,
-        blogText,
-        blogSubTitle,
-        blogTags,
+    console.log("Ghost data", {ghostUrl, ghostKey})
+    let result
+    try{
+      result = await fetch('http://localhost:2100/api/write', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        mode: 'cors',
+        body: JSON.stringify({
+          blogTitle,
+          blogText,
+          blogSubTitle,
+          blogTags,
+  
+          headerFile,
+          headerFileName: prev.headerFileName.current,
+          headerUrl,
+          headerAndBlogText: prev.headerAndBlogText.current, 
+  
+          devKey,
+          mediumKey,
+          hashnodeKey,
+          ghostUrl,
+          ghostKey,
+  
+          activeBlogs
+        }),
+      })
+    } catch(err){
+      //If the fetch request fails.
+      err.json()
+      .then(jsonResult=>{
+        result = jsonResult
+      })
+        //If we can't convert the error to json
+      .catch(err2=>console.log(err2))
 
-        headerFile,
-        headerFileName: prev.headerFileName.current,
-        headerUrl,
-        headerAndBlogText: prev.headerAndBlogText.current, 
+      return
+    }
 
-        devKey,
-        mediumKey,
-        hashnodeKey,
-        ghostUrl,
-        ghostKey
-      }),
-    })
-    .catch(err=>console.log(err))
-    // .then(res => res.json())
-    .then(res => console.log(JSON.stringify(res)))
+    try{
+      result = await result.json()
+    } catch(err){
+      console.log(err)
+      result = err
+    }
+
+    console.log('Final result:', result)
+    setPushResult(result)
   }
 
+  const [pushModalActive, setPushModalActive] = useState(false)
+  const [pushResult, setPushResult] = useState(null)
   return (
     <div className="app_container">
+      {
+        pushModalActive &&
+        <PushModal
+          showPushModal={setPushModalActive}
+          result={pushResult}
+        />
+      }
       <PushButton submit={makePost} />
       <NavBar changePage={changePage}/>
-      {/* <div className="page_container"> */}
-        {
-          showPage()
-        }
-        {/* <Write 
-          updateBlogText={setBlogText}
-          updateBlogTitle={setBlogTitle}
-          updateBlogSubTitle={setBlogSubTitle}
-          updateBlogTags={parseAndSetTags}
-        /> */}
-      {/* </div> */}
+      
+      {showPage()}
+
     </div>
   )
 }

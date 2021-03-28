@@ -41,6 +41,18 @@
     color: black;
 }
 
+.tags{
+    display: flex;
+    column-gap: 0.5em;
+    color: black;
+    font-size: 16px;
+}
+
+.tags > p{
+    color: #3fab9b;
+    text-align: center;
+}
+
 .text{
     max-width: 100%;
 }
