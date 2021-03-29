@@ -1,33 +1,36 @@
 import pushStyles from '../styles/PushModal.module.css'
 import Result from '../components/Result'
 
-function PushModal({result, showPushModal}) {
+function PushModal(props) {
     return (
-        <>
+        <div className={pushStyles.push_modal_container}>
             <div className={pushStyles.background}
-                onClick={()=>showPushModal(false)}>
+                onClick={()=>props.showPushModal(false)}>
             </div>
             
             <div className={pushStyles.modal}>
-                {                      
-                    result ?
-                        result.map((res, index)=>{
-                            return <Result
-                                message={res.message}
-                                data={res.data}
-                                key={index}
-                            />                            
-                        })
+                <div className={pushStyles.result_list}>
+                    {                      
+                        props.result ?
+                            props.result.map((res, index)=>{
+                                return <Result
+                                    message={res.message}
+                                    data={res.data}
+                                    key={index}
+                                />                            
+                            })
 
-                    :
+                        :
 
-                    <>
-                        <img className={pushStyles.loading} src='https://i.imgur.com/llF5iyg.gif'></img>
-                        <span>Submitting posts...</span>
-                    </>
-                }      
+                        <>
+                            <img className={pushStyles.loading} src='https://i.imgur.com/llF5iyg.gif'></img>
+                            <span>Submitting posts...</span>
+                        </>
+                    }
+                </div>
+                <button className={pushStyles.close_button} onClick={props.closeModal}>Close</button>
             </div>
-        </>
+        </div>
     )
 }
 

@@ -35,8 +35,12 @@ function Connections(props) {
         ghostUrlRef.current.value =
             props.apiKeys.ghostUrl.current || localStorage.getItem('ghostUrl')
         
-        const alreadyCheckedBoxes =
-            props.checkedBoxes || localStorage.getItem('checkedBoxes').split(',')        
+        const alreadyCheckedBoxes = props.checkedBoxes
+
+        // const alreadyCheckedBoxes =
+        //     props.checkedBoxes.length > 0 ?
+        //         props.checkedBoxes :
+        //         localStorage.getItem('checkedBoxes').split(',')  
             
         console.log("Already checked:", alreadyCheckedBoxes)
 

@@ -30,14 +30,19 @@ function Preview({info}) {
                         { __html: converter.makeHtml(info.blogSubTitle) }
                     }
                 >
-                </h2>          
-                <span 
-                    className={previewStyles.tags}
-                    dangerouslySetInnerHTML={
-                        { __html: `tags: ${converter.makeHtml(info.blogTags.join(', '))}` }
-                    }
-                >
-                </span>              
+                </h2>   
+
+                {
+                    info.blogTags.length > 0 && 
+                    <span 
+                        className={previewStyles.tags}
+                        dangerouslySetInnerHTML={
+                            { __html: `tags: ${converter.makeHtml(info.blogTags.join(', '))}` }
+                        }
+                    >
+                    </span>
+                }
+                
                 <span 
                     className={previewStyles.text}
                     dangerouslySetInnerHTML={

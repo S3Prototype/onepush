@@ -15,7 +15,7 @@
 
 Issues:
 * For some reason the connections aren't working properly.
-* Basically in the connections component, values are being loaded from localstorage, but when you load up the index.js those same values from local storage ar enot being loaded into the actual state variables which represent all those api key values. We need a way to detect when the server is finally executing in the browser, so we can set those state variables to localstorage values.
+* Basically in the connections component, values are being loaded from localstorage, but when you load up the index.js those same values from local storage are not being loaded into the actual state variables which represent all those api key values. We need a way to detect when the server is finally executing in the browser, so we can set those state variables to localstorage values.
 
 3/27/21
 * Add tags to preview, under where subtitles would go.

@@ -7,7 +7,8 @@ import { updateRestTypeNode } from 'typescript'
 import Preview from '../components/Preview'
 import PushModal from '../components/PushModal'
 // import hashnode from '../components/hashnode'
-
+import preReq from '../utils/PreRequestMethods'
+import customError from '../utils/ErrorMessages'
 
 export default function Home() {
 
@@ -17,7 +18,8 @@ export default function Home() {
     switch(pageToShow){
       case "write":
         return <Write
-          update={
+          update =
+          {
             {
               blogText: setBlogText,
               blogTitle: setBlogTitle,
@@ -26,7 +28,7 @@ export default function Home() {
               headerFile: parseAndSetHeaderFile,
               headerUrl: setHeaderUrl
             }
-          } 
+          }
           prev={prev}
         />
       
@@ -102,11 +104,11 @@ export default function Home() {
   }
 
   useEffect(()=>{
+    if(typeof window === "undefined") return
+
     apiKeys.dev.current = devKey
     
     apiKeys.medium.current = mediumKey
-    
-    console.log("Index.js use effect, medium key", mediumKey)
     
     apiKeys.hashnode.current = hashnodeKey
     
@@ -138,8 +140,6 @@ export default function Home() {
   }
 
   useEffect(()=>{
-    if(typeof window === "undefined") return
-
     prev.text.current = blogText
     prev.title.current = blogTitle
     prev.subTitle.current = blogSubTitle
@@ -150,9 +150,42 @@ export default function Home() {
     prev.headerAndBlogText.current = 
       `![Cover Image/Header Image for 
         ${blogTitle}](${headerUrl})
-        <br>${blogText}`
+        <br>${blogText}`  
+
+    const storedKeys = {
+      devKey: localStorage.getItem('devKey'),
+      mediumKey: localStorage.getItem('mediumKey'),
+      hashnodeKey: localStorage.getItem('hashnodeKey'),
+      ghostKey: localStorage.getItem('ghostKey'),
+      ghostUrl: localStorage.getItem('ghostUrl')
+    }
+
+    if(storedKeys['devKey'])
+      setDevKey(storedKeys['devKey'])
+    
+    if(storedKeys['mediumKey'])
+      setMediumKey(storedKeys['mediumKey'])
+    
+    if(storedKeys['hashnodeKey'])
+      setHashnodeKey(storedKeys['hashnodeKey'])
+    
+    if(storedKeys['ghostKey'])
+      setGhostKey(storedKeys['ghostKey'])
+    
+    if(storedKeys['ghostUrl'])
+      setGhostUrl(storedKeys['ghostUrl'])
   })
-  // }, [blogText, blogTitle, blogSubTitle, blogTags])
+
+  useEffect(()=>{
+    if(typeof window === "undefined") return
+
+    setDevKey
+    setMediumKey
+    setHashnodeKey
+    setGhostKey
+    setGhostUrl
+
+  }, [])
 
   function parseAndSetTags(rawTagText){
     // console.log(`Raw tags are: ${rawTagText}`)
@@ -178,6 +211,12 @@ export default function Home() {
   async function makePost(){
     setPushModalActive(true)
     setPushResult(null)
+
+    const errorFound = preReq.findErrorsInPost(blogTitle, blogText, activeBlogs, apiKeys)
+    if(errorFound){
+      setPushResult([errorFound])
+      return
+    }
 
     console.log("Ghost data", {ghostUrl, ghostKey})
     let result
@@ -207,14 +246,17 @@ export default function Home() {
         }),
       })
     } catch(err){
-      //If the fetch request fails.
-      err.json()
-      .then(jsonResult=>{
-        result = jsonResult
-      })
-        //If we can't convert the error to json
-      .catch(err2=>console.log(err2))
-
+      result = [
+        customError.generateError(`Failed to publish your post.  The server may be down for maintenance. ${err}.`)
+      ]
+      // //If the fetch request fails.
+      // err.json()
+      // .then(jsonResult=>{
+      //   result = jsonResult
+      // })
+      //   //If we can't convert the error to json
+      // .catch(err2=>console.log(err2))
+      setPushResult(result)
       return
     }
 
@@ -238,6 +280,7 @@ export default function Home() {
         <PushModal
           showPushModal={setPushModalActive}
           result={pushResult}
+          closeModal={()=>setPushModalActive(false)}
         />
       }
       <PushButton submit={makePost} />
