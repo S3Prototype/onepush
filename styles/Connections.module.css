@@ -7,8 +7,7 @@
     justify-content: flex-start;
     color: black;
 
-    max-height: 100vh;
-    margin-bottom: 30px;
+    padding-bottom: 10%;
 }
 
 .input_container{
@@ -35,22 +34,23 @@
 }
 
 .api_active{
-    color: #3fab9b;
+    color: var(--green);
 }
 
 .info{
     padding: 10px;
     margin-top: 20px;
+    font-size: var(--small-font-size);
     color: inherit;
     font-weight: bold;
     border-style: dotted;
     border-width: 2px;
-    border-color: #5e454b;
-    background-color: #cee5d0;
+    border-color: var(--brown);
+    background-color:var(--mint);
 }
 
 .warning{
-    color: #3fab9b;
+    color: var(--green);
     font-weight: bold;
 }
 
@@ -64,7 +64,12 @@
 
 .connection > label{
     color: black;
+    font-size: var(--small-font-size);
     text-align: center;
+}
+
+.check_label{
+    font-size: var(--small-font-size);
 }
 
 .token_input{
@@ -73,8 +78,8 @@
     border-style: solid;
     border-width: 0 0 1px 0;
     background: none;
-    font-size: 18px;
-    color: #3fab9b;
+    font-size: var(--small-font-size);
+    color: var(--green);
     text-align: center;
 }
 
@@ -85,7 +90,7 @@
 
 .token_input::placeholder{
     text-align: center;
-    color: #3fab9b;
+    color: var(--green);
 }
 
 .medium_connection{
@@ -93,7 +98,6 @@
     text-align: center;
     display: flex;
     justify-content: space-between;
-    
 }
 
 .medium_logo{

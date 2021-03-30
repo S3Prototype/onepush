@@ -44,9 +44,9 @@ export default function Home() {
           updateGhostUrl={valObject=>setKeyData(valObject, setGhostUrl)}
           updateCheckedBoxes={checkedArray=>{
               setActiveBlogs(checkedArray)
-              localStorage.setItem('checkedBoxes', checkedArray.toString())
-              
-              // setBlogListActive(checkedArray.length > 0)
+              if(checkedArray.length > 0) setBlogListActive(true)
+              else setBlogListActive(false)
+              localStorage.setItem('checkedBoxes', checkedArray.toString())              
           }}
         />
 
@@ -272,9 +272,11 @@ export default function Home() {
 
       <PushButton submit={makePost} />
       <NavBar changePage={changePage}/>
-      <BlogList activeBlogs={activeBlogs} />  
+      {
+        blogListActive && 
+        <BlogList activeBlogs={activeBlogs} />  
+      }
       {showPage()}
-
     </div>
   )
 }

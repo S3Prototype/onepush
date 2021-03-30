@@ -1,15 +1,23 @@
 import pushStyles from '../styles/PushModal.module.css'
 
-function Result({message, data}) {
+function Result({resultInfo}) {
     const messageType =
-        message === 'Error' ?
+    resultInfo.message === 'Error' ?
             pushStyles.error_message
             :
             pushStyles.success_message
     return (
         <div className={pushStyles.result_container}>
-            <span className={`${pushStyles.result_message} ${messageType}`}>{message}:</span>
-            <span className={pushStyles.result}>{data}</span>                                
+            <span className={`${pushStyles.result_message} ${messageType}`}>{resultInfo.message}:</span>
+            <span className={pushStyles.result}>{resultInfo.data}</span>
+            {
+                resultInfo.message === 'Success' && resultInfo.url ?
+                    <a className={pushStyles.external_link} target="_blank" href={resultInfo.url}>
+                        Share Link
+                    </a>                                
+                    :
+                    <span className={pushStyles.external_link}>No share url returned.</span>
+            }
         </div>
     )
 }

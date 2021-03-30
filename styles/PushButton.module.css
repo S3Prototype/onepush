@@ -1,14 +1,14 @@
 .push_button{
     /* color: black; */
-    color: oldlace;
+    color: whitesmoke;
     font-family: Georgia, 'Times New Roman', Times, serif;
 
-    background-color: #3fab9b;
+    background-color: var(--green);
     border: none;
     min-width: 90%;
     min-height: 5vh;
     margin-top: 20px;
-    font-size: 20px;
+    font-size: var(--medium-font-size);
     text-transform: uppercase;
     letter-spacing: 2px;
 }

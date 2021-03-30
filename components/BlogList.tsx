@@ -5,8 +5,9 @@ function BlogList(props) {
         <div className={blStyles.list_container}>
             <span>
                 {
-                    props.activeBlogs.length > 0 && "Selected Blogs: "
+                    // props.activeBlogs.length > 0 && "Selected Blogs: "
                 }
+                Selected Blogs: 
             </span>
             {
                 props.activeBlogs.map((current, index)=>{

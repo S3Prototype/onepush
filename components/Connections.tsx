@@ -36,11 +36,6 @@ function Connections(props) {
             props.apiKeys.ghostUrl.current || localStorage.getItem('ghostUrl')
         
         const alreadyCheckedBoxes = props.checkedBoxes
-
-        // const alreadyCheckedBoxes =
-        //     props.checkedBoxes.length > 0 ?
-        //         props.checkedBoxes :
-        //         localStorage.getItem('checkedBoxes').split(',')  
             
         console.log("Already checked:", alreadyCheckedBoxes)
 
@@ -87,7 +82,7 @@ function Connections(props) {
                         ref={hashnodeActiveRef} 
                         onClick={saveCheckedBoxes}
                     ></input>            
-                    <label htmlFor="hashnode_blog">Post to Hashnode?</label>
+                    <label className={cStyles.check_label} htmlFor="hashnode_blog">Post to Hashnode?</label>
                 </div>
                 <div className={cStyles.connection}>
                     <label htmlFor="hashnode_connection">Hashnode Key/Token:
@@ -110,7 +105,7 @@ function Connections(props) {
                     <input ref={devActiveRef} type="checkbox" name="dev_blog"
                         onClick={saveCheckedBoxes}
                     ></input>            
-                    <label htmlFor="dev_blog">Post to DEV?</label>
+                    <label className={cStyles.check_label} htmlFor="dev_blog">Post to DEV?</label>
                 </div>
                 <div className={cStyles.connection}>
                     <label htmlFor="dev_connection">DEV.to Key/Token:
@@ -132,7 +127,7 @@ function Connections(props) {
                     <input ref={mediumActiveRef} type="checkbox" name="medium_blog"
                         onClick={saveCheckedBoxes}
                     ></input>            
-                    <label htmlFor="medium_blog">Post to Medium?</label>
+                    <label className={cStyles.check_label} htmlFor="medium_blog">Post to Medium?</label>
                 </div>
 
                 <div className={cStyles.connection}>
@@ -155,7 +150,7 @@ function Connections(props) {
                     <input ref={ghostActiveRef} type="checkbox" name="ghost_blog"
                         onClick={saveCheckedBoxes}
                     ></input>            
-                    <label htmlFor="ghost_blog">Post to Ghost?</label>
+                    <label className={cStyles.check_label} htmlFor="ghost_blog">Post to Ghost?</label>
                 </div>
 
                 <div className={cStyles.connection}>
@@ -171,6 +166,9 @@ function Connections(props) {
                     name="ghost_url_connection" type="text"></input>
                 </div>
 
+                <br/>
+                <br/>
+                
                 <div className={cStyles.connection}>
                     <label htmlFor="ghost_connection">Ghost Key/Token:
                     </label>                               
@@ -184,6 +182,7 @@ function Connections(props) {
                     name="ghost_connection" type="text"></input>
                 </div>
             </div>
+
         </div>
     )
 }

@@ -14,14 +14,11 @@ function PushModal(props) {
                         props.result ?
                             props.result.map((res, index)=>{
                                 return <Result
-                                    message={res.message}
-                                    data={res.data}
+                                    resultInfo={res}
                                     key={index}
                                 />                            
                             })
-
                         :
-
                         <>
                             <img className={pushStyles.loading} src='https://i.imgur.com/llF5iyg.gif'></img>
                             <span>Submitting posts...</span>

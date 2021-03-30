@@ -1,23 +1,30 @@
-* Make a popup modal for after you hit push. "Pushing to -[list of selected options]. Please wait."
-* When it's done, if any errors, print them. Otherwise say, "Successfully posted to -[each thing that was a success]"
-    * If you can get the url, that would be great.
-*Users have to press "okay" to get out of the modal."
-* Maybe put all the backend stuff in the nextjs server? Keeps you from having to deploy separately. I mean you don't even need any backend code necessarily.
-* Instead of creating the user login stuff, how bout instead just use localstorage?
-    * Now make the backend where they log in and their connections are stored.
-        * Also save them to local storage.
-        * Whenever push is pressed, or "connections" is entered, check if we have the connection info. If not, check local storage. If not there, pull from the backend. If not logged in, request user login.
-    * Users have to login/register to even use the app.
-        * In its beta form, app is free. When launched, should cost $4.99/mo
-* Backend on digitalocean (or render.com? Should not need very much overhead at all for simple login/logout procedures. Will be storing data in mongodb cluster.
+* Test out all the features thoroughly. Maybe even try a test suite.
+* Fix the css. Get rid of those hard-coded font-sizes and colors. Then make it look good on desktop.
+* You're done.
+* Make the success message have an <a> tag wrapped around the url, if it was returned upon success.
+
+* Backend on digitalocean (or render.com? Should not need very much overhead at all for simple login/logout procedures. Will be storing data in mongodb cluster.)
 * Integrate wordpress connection (maybe)
 
-Issues:
+Future stuff:
+* Now make the backend where they log in and their connections are stored.
+    * Also save them to local storage.
+    * Whenever push is pressed, or "connections" is entered, check if we have the connection info. If not, check local storage. If not there, pull from the backend. If not logged in, request user login.
+* Users have to login/register to even use the app.
+    * In its beta form, app is free. When launched, should cost $4.99/mo
 
 DONE:
 
-3/29/21
+3/30/21
+* Cover Image/Header Image for <-- Text gets inserted into blogtext even if no header image is chosen. So that's not good.
 
+
+3/29/21
+* Instead of creating the user login stuff, how bout instead just use localstorage?
+*Users have to press "okay" to get out of the modal."
+* Make a popup modal for after you hit push. "Pushing to -[list of selected options]. Please wait."
+    * If you can get the url, that would be great.
+* When it's done, if any errors, print them. Otherwise say, "Successfully posted to -[each thing that was a success]"
 * Add a list at the top of the Write page that shows what connections are active. Pressing one should deactivate it.
 * For some reason the connections aren't working properly. Basically in the connections component, values are being loaded from localstorage, but when you load up the index.js those same values from local storage are not being loaded into the actual state variables which represent all those api key values. We need a way to detect when the server is finally executing in the browser, so we can set those state variables to localstorage values.
     * FIXED (I think)
