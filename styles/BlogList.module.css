@@ -1,0 +1,11 @@
+.list_container{
+    display: block;
+    
+    color: var(--green);
+    font-size: var(--medium-font-size);
+
+    margin-top: 5%;
+
+    max-width: 90%;
+    overflow: auto;
+}

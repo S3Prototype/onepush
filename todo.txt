@@ -1,4 +1,3 @@
-* Add a list at the top of the Write page that shows what connections are active. pressing one should deactivate it.
 * Make a popup modal for after you hit push. "Pushing to -[list of selected options]. Please wait."
 * When it's done, if any errors, print them. Otherwise say, "Successfully posted to -[each thing that was a success]"
     * If you can get the url, that would be great.
@@ -14,8 +13,14 @@
 * Integrate wordpress connection (maybe)
 
 Issues:
-* For some reason the connections aren't working properly.
-* Basically in the connections component, values are being loaded from localstorage, but when you load up the index.js those same values from local storage are not being loaded into the actual state variables which represent all those api key values. We need a way to detect when the server is finally executing in the browser, so we can set those state variables to localstorage values.
+
+DONE:
+
+3/29/21
+
+* Add a list at the top of the Write page that shows what connections are active. Pressing one should deactivate it.
+* For some reason the connections aren't working properly. Basically in the connections component, values are being loaded from localstorage, but when you load up the index.js those same values from local storage are not being loaded into the actual state variables which represent all those api key values. We need a way to detect when the server is finally executing in the browser, so we can set those state variables to localstorage values.
+    * FIXED (I think)
 
 3/27/21
 * Add tags to preview, under where subtitles would go.

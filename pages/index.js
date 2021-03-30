@@ -9,6 +9,7 @@ import PushModal from '../components/PushModal'
 // import hashnode from '../components/hashnode'
 import preReq from '../utils/PreRequestMethods'
 import customError from '../utils/ErrorMessages'
+import BlogList from '../components/BlogList'
 
 export default function Home() {
 
@@ -44,6 +45,8 @@ export default function Home() {
           updateCheckedBoxes={checkedArray=>{
               setActiveBlogs(checkedArray)
               localStorage.setItem('checkedBoxes', checkedArray.toString())
+              
+              // setBlogListActive(checkedArray.length > 0)
           }}
         />
 
@@ -94,6 +97,7 @@ export default function Home() {
   const [ghostUrl, setGhostUrl] = useState('')
 
   const [activeBlogs, setActiveBlogs] = useState([])
+  const [blogListActive, setBlogListActive] = useState(false)
 
   const apiKeys = {
     dev: useRef(''),
@@ -176,19 +180,7 @@ export default function Home() {
       setGhostUrl(storedKeys['ghostUrl'])
   })
 
-  useEffect(()=>{
-    if(typeof window === "undefined") return
-
-    setDevKey
-    setMediumKey
-    setHashnodeKey
-    setGhostKey
-    setGhostUrl
-
-  }, [])
-
   function parseAndSetTags(rawTagText){
-    // console.log(`Raw tags are: ${rawTagText}`)
     //Split out the tags, which should be split by commas.
     //Then add them to an array and setBlogTags(thearray).    
     if(!rawTagText || rawTagText.length <= 0){
@@ -249,13 +241,6 @@ export default function Home() {
       result = [
         customError.generateError(`Failed to publish your post.  The server may be down for maintenance. ${err}.`)
       ]
-      // //If the fetch request fails.
-      // err.json()
-      // .then(jsonResult=>{
-      //   result = jsonResult
-      // })
-      //   //If we can't convert the error to json
-      // .catch(err2=>console.log(err2))
       setPushResult(result)
       return
     }
@@ -273,6 +258,7 @@ export default function Home() {
 
   const [pushModalActive, setPushModalActive] = useState(false)
   const [pushResult, setPushResult] = useState(null)
+  
   return (
     <div className="app_container">
       {
@@ -283,9 +269,10 @@ export default function Home() {
           closeModal={()=>setPushModalActive(false)}
         />
       }
+
       <PushButton submit={makePost} />
       <NavBar changePage={changePage}/>
-      
+      <BlogList activeBlogs={activeBlogs} />  
       {showPage()}
 
     </div>

@@ -1,3 +1,13 @@
+:root{
+  --green: #3fab9b;
+  --mint: #cee5d0;
+  --tan: #f3f0d7;
+  --beige: #d8b384;
+  --brown: #5e454b;
+
+  --medium-font-size: 22px;
+}
+
 html,
 body {
   background-color: #f3f0d7;
