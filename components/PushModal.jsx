@@ -1,5 +1,5 @@
 import pushStyles from '../styles/PushModal.module.css'
-import Result from '../components/Result'
+import Result from './Result'
 
 function PushModal(props) {
     return (

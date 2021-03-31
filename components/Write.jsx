@@ -1,5 +1,5 @@
 import write from '../styles/Write.module.css'
-import EditorButtons from '../components/EditorButtons'
+import EditorButtons from './EditorButtons'
 import {useEffect, useState, useRef} from 'react'
 
 export default function Write(props) {
