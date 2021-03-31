@@ -3,10 +3,10 @@ import EditorButtons from '../components/EditorButtons'
 import {useEffect, useState, useRef} from 'react'
 
 export default function Write(props) {
-    const textRef = useRef('')
-    const titleRef = useRef('')
-    const subTitleRef = useRef('')
-    const tagRef = useRef('')
+    const textRef = useRef(null)
+    const titleRef = useRef(null)
+    const subTitleRef = useRef(null)
+    const tagRef = useRef(null)
     useEffect(()=>{
         textRef.current.value = props.prev.text.current
         titleRef.current.value = props.prev.title.current
