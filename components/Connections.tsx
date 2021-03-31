@@ -3,11 +3,11 @@ import {useRef, useEffect} from 'react'
 
 function Connections(props) {
 
-    const hashnodeRef = useRef('')
-    const devRef = useRef('')
-    const mediumRef = useRef('')
-    const ghostKeyRef = useRef('')
-    const ghostUrlRef = useRef('')
+    const hashnodeRef = useRef(null)
+    const devRef = useRef(null)
+    const mediumRef = useRef(null)
+    const ghostKeyRef = useRef(null)
+    const ghostUrlRef = useRef(null)
 
     const hashnodeActiveRef = useRef(null)
     const devActiveRef = useRef(null)
