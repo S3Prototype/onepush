@@ -212,7 +212,7 @@ export default function Home() {
     console.log("Ghost data", {ghostUrl, ghostKey})
     let result
     try{
-      result = await fetch('http://localhost:2100/api/write', {
+      result = await fetch('https://onepush-backend.onrender.com/api/write', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         mode: 'cors',
