@@ -4,8 +4,14 @@ function NavBar(props) {
 
     const [selectedButton, setSelectedButton] = useState('writeButton')
 
+    const buttonList = [
+        'writeButton',
+        'previewButton',
+        'connectionsButton'
+    ]
+
     function toggleSelected(e){
-        if(e.target.id !== selectedButton){
+        if(e.target.id !== selectedButton && buttonList.includes(e.target.id)){
             setSelectedButton(e.target.id)
             props.changePage(e.target.id)
         }

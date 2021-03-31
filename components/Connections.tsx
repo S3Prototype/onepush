@@ -17,8 +17,8 @@ function Connections(props) {
     useEffect(()=>{        
         if(typeof window === 'undefined') return
 
-        console.log('Api key is:', props.apiKeys.ghostKey.current)
-        console.log('local storage of key is', localStorage.getItem('ghostKey'))
+        // console.log('Api key is:', props.apiKeys.ghostKey.current)
+        // console.log('local storage of key is', localStorage.getItem('ghostKey'))
 
         hashnodeRef.current.value =
             props.apiKeys.hashnode.current || localStorage.getItem('hashnodeKey')
@@ -37,7 +37,7 @@ function Connections(props) {
         
         const alreadyCheckedBoxes = props.checkedBoxes
             
-        console.log("Already checked:", alreadyCheckedBoxes)
+        // console.log("Already checked:", alreadyCheckedBoxes)
 
         alreadyCheckedBoxes.forEach(box=>{
             switch(box){
@@ -59,13 +59,13 @@ function Connections(props) {
     }, [])
 
     function saveCheckedBoxes(e){
-        let checkedArray
         if(e.target.checked){
-            props.checkedBoxes.push(e.target.name)
-            checkedArray = props.checkedBoxes
+            var checkedArray = [...props.checkedBoxes, e.target.name]
         }
         else
             checkedArray = props.checkedBoxes.filter(box=>box !== e.target.name)
+
+        // console.log('checkedArray after removal', checkedArray)
 
         props.updateCheckedBoxes(checkedArray)
     }

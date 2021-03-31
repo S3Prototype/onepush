@@ -1,27 +1,37 @@
 import blStyles from '../styles/BlogList.module.css'
+import {useEffect, useRef, useState} from 'react'
 
 function BlogList(props) {
+
+    const [currentBlogList, setCurrentBlogList] = useState([])
+
+    function showActiveBlogs(){
+        return ' ' + currentBlogList.map((current, index)=>{
+            current =
+                current.charAt(0).toUpperCase() + current.slice(1)
+            current = current.substring(0, current.indexOf('_blog'))
+            return current
+        }).join(', ')
+    }
+
+    const listText = useRef(null)
+    useEffect(()=>{
+        listText.current.innerHTML = showActiveBlogs()
+    }
+    , [currentBlogList]
+    )
+
     return (
         <div className={blStyles.list_container}>
             <span>
-                {
-                    // props.activeBlogs.length > 0 && "Selected Blogs: "
-                }
-                Selected Blogs: 
+                Selected Blogs:
             </span>
             {
-                props.activeBlogs.map((current, index)=>{
-                    current =
-                        current.charAt(0).toUpperCase() + current.slice(1)
-
-                    current = current.substring(0, current.indexOf('_blog'))
-                    
-                    if(index !== props.activeBlogs.length - 1)
-                        current += ', '
-
-                    return current
-                })
-            }
+                currentBlogList.length !== props.activeBlogs.length &&
+                setCurrentBlogList(props.activeBlogs)                  
+            }            
+            <span ref={listText} className={blStyles.blog_list}>                
+            </span>
         </div>
     )
 }

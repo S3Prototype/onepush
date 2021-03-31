@@ -43,9 +43,9 @@ export default function Home() {
           updateGhostKey={valObject=>setKeyData(valObject, setGhostKey)}
           updateGhostUrl={valObject=>setKeyData(valObject, setGhostUrl)}
           updateCheckedBoxes={checkedArray=>{
+            console.log("Active blogs", activeBlogs)
+            console.log("Checkedarray", checkedArray)
               setActiveBlogs(checkedArray)
-              if(checkedArray.length > 0) setBlogListActive(true)
-              else setBlogListActive(false)
               localStorage.setItem('checkedBoxes', checkedArray.toString())              
           }}
         />
@@ -97,7 +97,7 @@ export default function Home() {
   const [ghostUrl, setGhostUrl] = useState('')
 
   const [activeBlogs, setActiveBlogs] = useState([])
-  const [blogListActive, setBlogListActive] = useState(false)
+  const [blogString, setBlogString] = useState(false)
 
   const apiKeys = {
     dev: useRef(''),
@@ -258,6 +258,24 @@ export default function Home() {
 
   const [pushModalActive, setPushModalActive] = useState(false)
   const [pushResult, setPushResult] = useState(null)
+
+  const listRef = useRef('')
+
+  useEffect(()=>{
+    console.log('blogs:', activeBlogs.map((current, index)=>{
+        current =
+            current.charAt(0).toUpperCase() + current.slice(1)
+
+        current = current.substring(0, current.indexOf('_blog'))
+        
+        // if(index !== activeBlogs.length - 1)
+        //     current += ', '
+
+        return current
+      })
+      .join(', ')
+    )
+  }, [activeBlogs])
   
   return (
     <div className="app_container">
@@ -269,13 +287,9 @@ export default function Home() {
           closeModal={()=>setPushModalActive(false)}
         />
       }
-
       <PushButton submit={makePost} />
       <NavBar changePage={changePage}/>
-      {
-        blogListActive && 
-        <BlogList activeBlogs={activeBlogs} />  
-      }
+      <BlogList activeBlogs={activeBlogs}/>
       {showPage()}
     </div>
   )
