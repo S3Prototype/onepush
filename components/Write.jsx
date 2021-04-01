@@ -78,7 +78,7 @@ export default function Write(props) {
                 <label htmlFor="blogTitle"></label>
                 <input name="blogTitle" id="blogTitle" type="text"
                 className={write.title_input}
-                placeholder="Title"
+                placeholder="Write Your Title Here"
                 onInput={(e)=>props.update.blogTitle(e.target.value)}
                 ref={titleRef}
                 />

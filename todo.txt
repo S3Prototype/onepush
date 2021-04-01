@@ -3,6 +3,8 @@
 * Integrate wordpress connection (maybe)
 
 Future stuff:
+* Add blog-specific options based on active blogs.
+    ** If dev is active, add the series input
 * Add blog breakout--be able to edit each individual blog's post separately.
 * Now make the backend where they log in and their connections are stored.
     * Also save them to local storage.
