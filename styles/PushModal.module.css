@@ -83,6 +83,7 @@
     display: grid;
     grid-template-columns: [message] 1fr [data] 2fr;
     grid-template-rows: [message-data] 2fr [url] 1fr;
+    min-width: 90%;
     max-width: 90%;
     column-gap: 10px;
     margin-top: 10%;

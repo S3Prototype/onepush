@@ -5,10 +5,12 @@
 Future stuff:
 * Add blog-specific options based on active blogs.
     ** If dev is active, add the series input
+* Add list of created posts + their urls
 * Add blog breakout--be able to edit each individual blog's post separately.
 * Now make the backend where they log in and their connections are stored.
     * Also save them to local storage.
     * Whenever push is pressed, or "connections" is entered, check if we have the connection info. If not, check local storage. If not there, pull from the backend. If not logged in, request user login.
+* Add edit button to posts which are editable. Will require storing the ID's of these posts or any other relevant data for querying the post.
 * Users have to login/register to even use the app.
     * In its beta form, app is free. When launched, should cost $4.99/mo
 

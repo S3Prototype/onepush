@@ -179,7 +179,7 @@ function Connections(props) {
                         name: 'ghostKey',
                         value: e.target.value
                     })}
-                    name="ghost_connection" type="text"></input>
+                    name="ghost_connection" type="password"></input>
                 </div>
             </div>
 

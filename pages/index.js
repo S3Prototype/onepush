@@ -5,7 +5,6 @@ import {useRef, useEffect, useState} from 'react'
 import Connections from '../components/Connections'
 import Preview from '../components/Preview'
 import PushModal from '../components/PushModal'
-// import hashnode from '../components/hashnode'
 import preReq from '../utils/PreRequestMethods'
 import customError from '../utils/ErrorMessages'
 import BlogList from '../components/BlogList'
@@ -290,6 +289,11 @@ export default function Home() {
       <NavBar changePage={changePage}/>
       <BlogList activeBlogs={activeBlogs}/>
       {showPage()}
+
+      <span className="contact_info">Many new features are on the way!
+        <br/>
+        <a href="https://twitter.com/shaquilhansford" target="_blank">Send your questions/suggestions to @shaquilhansford on Twitter!</a>
+      </span>
     </div>
   )
 }
