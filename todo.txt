@@ -1,12 +1,19 @@
+* Make it track if anything has been changed yet. If nothing has changed and a post has already been pushed, don't let the user push it again.
 
 * Backend on digitalocean (or render.com? Should not need very much overhead at all for simple login/logout procedures. Will be storing data in mongodb cluster.)
 * Integrate wordpress connection (maybe)
 
 Future stuff:
+* Add saving drafts, etc
+* Make <a> tags in the preview underlined.
+* Make all the text, title, tag and header fields save to local storage too.
+* Convert double dashes -- to em-dashes
+* Add a little link under each connection that people can click that will take them to that platform's explanation of how to generate an API key.
 * Add blog-specific options based on active blogs.
     ** If dev is active, add the series input
 * Add list of created posts + their urls
 * Add blog breakout--be able to edit each individual blog's post separately.
+* Have drafts, which require accounts.
 * Now make the backend where they log in and their connections are stored.
     * Also save them to local storage.
     * Whenever push is pressed, or "connections" is entered, check if we have the connection info. If not, check local storage. If not there, pull from the backend. If not logged in, request user login.

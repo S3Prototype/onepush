@@ -1,0 +1,61 @@
+.page {
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    min-height: 100vh;
+}
+
+.summary{
+
+    display: flex;
+    margin:auto;
+    margin-top: 5vh;
+    max-width: 80vw;
+}
+
+.description{
+    font-family: 'Work Sans';
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    max-width: 50%;
+    padding: 30px;
+}
+
+.description_text_container{
+    row-gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.intro_title{
+
+}
+
+.app_name{
+
+}
+
+.start_button{
+    background-color: red;
+}
+
+.byline{
+    font-size: var(--small-font-size);
+    color: gray;
+}
+
+.intro_description{
+    font-size: var(--medium-font-size);
+}
+
+.promo_image{
+    max-width: 50%;
+}
+
+@media (max-width:800px) {
+    .promo_image{
+        display: none;
+    }
+    
+}

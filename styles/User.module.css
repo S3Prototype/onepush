@@ -1,0 +1,8 @@
+.user_container{
+    min-width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}

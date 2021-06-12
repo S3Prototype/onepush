@@ -1,5 +1,7 @@
 import cStyles from '../styles/Connections.module.css'
-import {useRef, useEffect} from 'react'
+import {useRef, useContext, useEffect} from 'react'
+import SingleConnection from './SingleConnection'
+import {LoginContext} from '../contexts/LoginContext'
 
 function Connections(props) {
 
@@ -14,7 +16,9 @@ function Connections(props) {
     const mediumActiveRef = useRef(null)
     const ghostActiveRef = useRef(null)
 
-    useEffect(()=>{        
+    const currentUserData = useContext(LoginContext)
+
+    const getInfoFromLocalStorage = ()=>{
         if(typeof window === 'undefined') return
 
         // console.log('Api key is:', props.apiKeys.ghostKey.current)
@@ -55,94 +59,102 @@ function Connections(props) {
                     break
             }
         })
+    }
+
+    useEffect(async ()=>{              
+        //* If can't get it from server,
+        //* get it from localstorage  
         
+        currentUserData.checkedBoxes.forEach(box=>{
+            switch(box){
+                case 'ghost_blog':
+                    ghostActiveRef.current.checked = true
+                    break
+                case 'medium_blog':
+                    mediumActiveRef.current.checked = true
+                    break
+                case 'hashnode_blog':
+                    hashnodeActiveRef.current.checked = true
+                    break
+                case 'dev_blog':
+                    devActiveRef.current.checked = true
+                    break
+            }
+        })      
+
+        let apiKeys
+        if(!currentUserData.apiKeysAcquired && currentUserData.loggedIn){
+            const apiFetch = await fetch(`http://localhost:2100/users/${currentUserData.username}`,
+                {    
+                    method: 'GET',
+                    headers: {
+                        "Content-Type":"application/json",
+                        "Authorization":`Bearer ${currentUserData.accessToken}`
+                    },
+                }
+            )
+
+            apiKeys = await apiFetch.json()
+
+            if(!apiKeys.found)
+                return getInfoFromLocalStorage()
+            else{
+                currentUserData.apiKeysAcquired = true
+                currentUserData.apiKeys = apiKeys
+            }
+        }
+
+        hashnodeRef.current.value = currentUserData.apiKeys.hashnodeKey        
+        devRef.current.value = currentUserData.apiKeys.devKey        
+        mediumRef.current.value = currentUserData.apiKeys.mediumKey    
+        ghostKeyRef.current.value = currentUserData.apiKeys.ghostKey
+        ghostUrlRef.current.value = currentUserData.apiKeys.ghostUrl
+
+
     }, [])
 
     function saveCheckedBoxes(e){
         if(e.target.checked){
-            var checkedArray = [...props.checkedBoxes, e.target.name]
+            currentUserData.checkedBoxes = [...props.checkedBoxes, e.target.name]
         }
         else
-            checkedArray = props.checkedBoxes.filter(box=>box !== e.target.name)
+            currentUserData.checkedBoxes = props.checkedBoxes.filter(box=>box !== e.target.name)
 
-        // console.log('checkedArray after removal', checkedArray)
-
-        props.updateCheckedBoxes(checkedArray)
+        props.updateCheckedBoxes(currentUserData.checkedBoxes)
     }
     
     return (
         <div className={cStyles.connections_container}>
             <p className={cStyles.info}>
                 To connect your blog, go to your account settings and look for an area called "API Key" or "API Token." Copy the token for each site you would like to connect and paste it here. Your token will be stored securely, and used to post to your blogs.
-            </p>
-            <div className={cStyles.input_container}>
-                
-                <div className={cStyles.api_setting}>
-                    <input type="checkbox" name="hashnode_blog"
-                        ref={hashnodeActiveRef} 
-                        onClick={saveCheckedBoxes}
-                    ></input>            
-                    <label className={cStyles.check_label} htmlFor="hashnode_blog">Post to Hashnode?</label>
-                </div>
-                <div className={cStyles.connection}>
-                    <label htmlFor="hashnode_connection">Hashnode Key/Token:
-                    </label>
-                    <input className={cStyles.token_input}
-                    placeholder="Enter your hashnode API Key here." name="hashnode_connection" 
-                    ref={hashnodeRef}
-                    onChange={(e)=>props.updateHashnodeKey({
-                        name: 'hashnodeKey',
-                        value: e.target.value
-                    })}
-                    type="password">                    
-                    </input>
-                </div>
-            </div>
+            </p>            
 
-            <div className={cStyles.input_container}>
-                
-                <div className={cStyles.api_setting}>
-                    <input ref={devActiveRef} type="checkbox" name="dev_blog"
-                        onClick={saveCheckedBoxes}
-                    ></input>            
-                    <label className={cStyles.check_label} htmlFor="dev_blog">Post to DEV?</label>
-                </div>
-                <div className={cStyles.connection}>
-                    <label htmlFor="dev_connection">DEV.to Key/Token:
-                    </label>                                
-                    <input className={cStyles.token_input} 
-                    placeholder="Enter your DEV API Key here." 
-                    ref={devRef}
-                    onChange={(e)=>props.updateDevKey({
-                        name: 'devKey',
-                        value: e.target.value
-                    })}
-                    name="dev_connection" type="password"></input>
-                </div>
-            </div>
+            <SingleConnection
+                keyHolder = {currentUserData.apiKeys}
+                name='hashnode'
+                updateKey={props.updateKey}
+                keyRef={hashnodeRef}
+                saveCheckedBoxes={saveCheckedBoxes}
+                activeRef={hashnodeActiveRef}
+            />
 
-            <div className={cStyles.input_container}>
-                
-                <div className={cStyles.api_setting}>
-                    <input ref={mediumActiveRef} type="checkbox" name="medium_blog"
-                        onClick={saveCheckedBoxes}
-                    ></input>            
-                    <label className={cStyles.check_label} htmlFor="medium_blog">Post to Medium?</label>
-                </div>
-
-                <div className={cStyles.connection}>
-                    <label htmlFor="medium_connection">Medium Key/Token:
-                    </label>                                
-                    <input className={cStyles.token_input} 
-                    placeholder="Enter your Medium API Key here." 
-                    ref={mediumRef}
-                    onChange={(e)=>props.updateMediumKey({
-                        name: 'mediumKey',
-                        value: e.target.value
-                    })}
-                    name="medium_connection" type="password"></input>
-                </div>
-            </div>
+            <SingleConnection
+                keyHolder = {currentUserData.apiKeys}
+                name='dev'
+                updateKey={props.updateKey}
+                keyRef={devRef}
+                saveCheckedBoxes={saveCheckedBoxes}
+                activeRef={devActiveRef}
+            />
+            
+            <SingleConnection
+                keyHolder = {currentUserData.apiKeys}
+                name='medium'
+                updateKey={props.updateKey}
+                keyRef={mediumRef}
+                saveCheckedBoxes={saveCheckedBoxes}
+                activeRef={mediumActiveRef}
+            />
 
             <div className={cStyles.input_container}>
                 
@@ -159,9 +171,9 @@ function Connections(props) {
                     <input className={cStyles.token_input} 
                     placeholder="Enter your Ghost API URL here." 
                     ref={ghostUrlRef}
-                    onChange={(e)=>props.updateGhostUrl({
-                        name: 'ghostUrl',
-                        value: e.target.value
+                    onChange={(e)=>props.updateKey({
+                        keyType: 'ghostUrl',
+                        newValue: e.target.value
                     })}
                     name="ghost_url_connection" type="text"></input>
                 </div>
@@ -175,9 +187,9 @@ function Connections(props) {
                     <input className={cStyles.token_input} 
                     placeholder="Enter your Ghost Admin API Key here." 
                     ref={ghostKeyRef}
-                    onChange={(e)=>props.updateGhostKey({
-                        name: 'ghostKey',
-                        value: e.target.value
+                    onChange={(e)=>props.updateKey({
+                        keyType: 'ghostKey',
+                        newValue: e.target.value
                     })}
                     name="ghost_connection" type="password"></input>
                 </div>

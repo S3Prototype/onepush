@@ -8,6 +8,47 @@ export default function Write(props) {
     const subTitleRef = useRef(null)
     const tagRef = useRef(null)
     useEffect(()=>{
+
+        // const mutation = `mutation {
+        //         postToMedium(
+        //           userID:"1e0249d6b472fc760dd1ef02054b9543b046a283d64827ac3751cb861f3e35e12",
+        //           title:"takeshape test 3",
+        //           contentFormat:"markdown",
+        //           content:"#Testing! <br />*testing*",
+        //           publishStatus:"public",
+        //         ) {
+        //            data {
+        //             id
+        //             title
+        //         }
+        //     }
+        // }`
+
+        // const mutation = `mutation {
+        //   postToDev(
+        //     api_key:${userApiKey},
+        //     title:${userBlogpostTitle},
+        //     body_markdown:${userBlogpostMarkdown},
+        //     published:${shouldPublish}
+        //   )
+        //   {
+        //     url
+        //   }
+        // }`
+
+        // fetch('https://api.takeshape.io/project/187e885f-95e2-4e30-a3e9-dc57dbd8ef1c/v3/graphql', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': 'Bearer 9906a5609aad434897fd022f5edb5bd0'
+        //     },
+        //     body: JSON.stringify({query: mutation})
+        // }).then(res => {
+        // return res.json();
+        // }).then(json => {
+        // console.log(json)
+        // })
+
         textRef.current.value = props.prev.text.current
         titleRef.current.value = props.prev.title.current
         // subTitleRef.current.value = props.prev.subTitle.current
@@ -83,15 +124,6 @@ export default function Write(props) {
                 ref={titleRef}
                 />
 
-                {/* <input type="text" name="blogSubTitle" id="subtitle"
-                className={write.title_input} id="blogSubTitle"
-                placeholder="Subtitle"
-                onChange={(e)=>props.update.blogSubTitle(e.target.value)}
-                ref={subTitleRef}
-                /> */}
-                
-                {/* <EditorButtons/> */}
-                
                 <textarea className={write.blog_text_area}
                     placeholder="Write your message for the world."
                     onChange={(e)=>props.update.blogText(e.target.value)}
@@ -103,7 +135,7 @@ export default function Write(props) {
                     ref={tagRef}
                     placeholder="Add your tags, separated by commas"
                     onChange={(e)=>props.update.blogTags(e.target.value)}
-                />               
+                />              
             </div> 
     )
 }
