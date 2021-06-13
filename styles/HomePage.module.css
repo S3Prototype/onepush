@@ -1,16 +1,23 @@
 .page {
-    min-width: 100%;
     max-width: 100%;
+    width: 100vw;
+    height: 100vh;
     max-height: 100vh;
-    min-height: 100vh;
+    row-gap: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Work Sans';
 }
 
 .summary{
-
     display: flex;
-    margin:auto;
-    margin-top: 5vh;
-    max-width: 80vw;
+    /* margin-top: 5vh; */
+    max-width: 90%;
+    min-height: 100vh;
+    max-height: 100vh;
+    align-items: center;
+    z-index: 10;
 }
 
 .description{
@@ -18,8 +25,9 @@
     display: flex;
     flex-direction: column;
     row-gap: 20px;
-    max-width: 50%;
+    max-width: 55%;
     padding: 30px;
+    background-color: white;
 }
 
 .description_text_container{
@@ -29,7 +37,7 @@
 }
 
 .intro_title{
-
+    font-size: 100px;
 }
 
 .app_name{
@@ -43,6 +51,7 @@
 .byline{
     font-size: var(--small-font-size);
     color: gray;
+    width: 80%;
 }
 
 .intro_description{
@@ -50,7 +59,63 @@
 }
 
 .promo_image{
-    max-width: 50%;
+    max-width: 40%;
+}
+
+.selling_points_container{
+    padding: 50px;
+    background-color: black;
+}
+
+.selling_points_title{
+    color: white;
+    text-align: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+
+.selling_points{
+    color: white;
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    max-width: 80%;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.point{
+    color: white;
+    display: flex;
+    max-width: 45%;
+    min-width: 45%;
+    column-gap: 3%;
+    font-family: 'Work Sans';
+}
+
+.icon_container{
+    width:160px;
+    align-self: flex-start;
+    color: white;
+    padding: 0;
+}
+
+.point_description{
+    display: inline-flex;
+    flex-direction: column;
+    color: white;
+    row-gap: 10px;
+}
+
+.point_name{
+    color: white;
+    font-size: 40px;
+}
+
+.point_summary{
+    color: white;
+    font-size: 30px;
 }
 
 @media (max-width:800px) {
