@@ -5,12 +5,7 @@ import React from 'react'
 
 function MyApp({ Component, pageProps }) {
   return  (
-    
-  <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </React.StrictMode>
+    <Component {...pageProps} />
   )
 }
 

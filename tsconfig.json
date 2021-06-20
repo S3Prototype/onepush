@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/index.js", "pages/index.js", "components/BlogList.jsx", "components/Write.jsx", "components/Result.jsx", "components/PushModal.jsx", "components/PushButton.jsx", "components/Preview.jsx", "components/NavBar.jsx", "components/hashnode.js", "components/EditorButtons.jsx", "components/Connections.jsx", "utils/ErrorMessages.js", "utils/PreRequestMethods.js"  ],
+, "components/index.js", "components/index.js", "components/BlogList.jsx", "components/Write.jsx", "components/Result.jsx", "components/PushModal.jsx", "components/PushButton.jsx", "components/Preview.jsx", "components/NavBar.jsx", "components/hashnode.js", "components/EditorButtons.jsx", "components/Connections.jsx", "utils/ErrorMessages.js", "utils/PreRequestMethods.js"  ],
   "exclude": [
     "node_modules"
   ]

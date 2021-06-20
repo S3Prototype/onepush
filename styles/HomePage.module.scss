@@ -17,6 +17,7 @@
     min-height: 100vh;
     max-height: 100vh;
     align-items: center;
+    color: var(--brown);
     z-index: 10;
 }
 
@@ -27,21 +28,24 @@
     row-gap: 20px;
     max-width: 55%;
     padding: 30px;
-    background-color: white;
+    color: var(--brown);
+    background-color: var(--tan);
 }
 
 .description_text_container{
     row-gap: 10px;
+    color: var(--brown);
     display: flex;
     flex-direction: column;
 }
 
 .intro_title{
+    color: var(--brown);
     font-size: 100px;
 }
 
 .app_name{
-
+    color:var(--green)
 }
 
 .start_button{
@@ -50,7 +54,7 @@
 
 .byline{
     font-size: var(--small-font-size);
-    color: gray;
+    color: var(--brown);
     width: 80%;
 }
 
@@ -58,35 +62,51 @@
     font-size: var(--medium-font-size);
 }
 
-.promo_image{
+.video_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     max-width: 40%;
+    .promo_video{
+        max-width: 100%;
+    }
+
+    .stop_video{
+        background: none;
+        border: none;
+        width: 100%;
+        height: 100px;
+    }
+
 }
 
 .selling_points_container{
     padding: 50px;
-    background-color: black;
+    background-color: var(--brown);
 }
 
 .selling_points_title{
-    color: white;
+    color: var(--tan);
     text-align: center;
     margin-bottom: 5%;
     margin-top: 5%;
 }
 
 .selling_points{
-    color: white;
+    color: var(--tan);
     display: flex;
     margin: auto;
     flex-wrap: wrap;
     max-width: 80%;
     width: 80%;
     flex-direction: row;
+    row-gap: 50px;
     justify-content: space-between;
 }
 
 .point{
-    color: white;
+    color: var(--tan);
     display: flex;
     max-width: 45%;
     min-width: 45%;
@@ -95,27 +115,54 @@
 }
 
 .icon_container{
-    width:160px;
+    min-width:60px;
+    min-height: 50px;
     align-self: flex-start;
-    color: white;
+    /* color: white; */
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.icon{
+    width: 100%;
 }
 
 .point_description{
     display: inline-flex;
     flex-direction: column;
-    color: white;
+    color: var(--tan);
     row-gap: 10px;
 }
 
 .point_name{
-    color: white;
+    color: var(--tan);
     font-size: 40px;
 }
 
 .point_summary{
-    color: white;
+    color: var(--tan);
     font-size: 30px;
+}
+
+.toolbar{
+    background-color:white;
+    box-shadow: 0;
+}
+
+.button{
+    border: none;
+    border-radius: 5px;
+    font-size: var(--small-font-size);
+    padding: 10px;
+    background-color: var(--green);
+    color: var(--tan);
+
+    &:hover{
+        background-color: var(--beige);
+    }
 }
 
 @media (max-width:800px) {

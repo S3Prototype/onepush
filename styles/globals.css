@@ -3,7 +3,7 @@
 :root{
     --green: #3fab9b;
     --mint: #cee5d0;
-    --tan: #f3f0d7;
+    --tan: #fbfaf0;
     --beige: #d8b384;
     --brown: #5e454b;
   
@@ -13,7 +13,7 @@
 
 html,
 body {
-/* background-color: var(--tan); */
+background-color: var(--tan);
 padding: 0;
 margin: 0;
 }

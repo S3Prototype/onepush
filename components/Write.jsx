@@ -10,21 +10,6 @@ export default function Write(props) {
     useEffect(()=>{
 
         // const mutation = `mutation {
-        //         postToMedium(
-        //           userID:"1e0249d6b472fc760dd1ef02054b9543b046a283d64827ac3751cb861f3e35e12",
-        //           title:"takeshape test 3",
-        //           contentFormat:"markdown",
-        //           content:"#Testing! <br />*testing*",
-        //           publishStatus:"public",
-        //         ) {
-        //            data {
-        //             id
-        //             title
-        //         }
-        //     }
-        // }`
-
-        // const mutation = `mutation {
         //   postToDev(
         //     api_key:${userApiKey},
         //     title:${userBlogpostTitle},
@@ -36,18 +21,33 @@ export default function Write(props) {
         //   }
         // }`
 
-        // fetch('https://api.takeshape.io/project/187e885f-95e2-4e30-a3e9-dc57dbd8ef1c/v3/graphql', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': 'Bearer 9906a5609aad434897fd022f5edb5bd0'
-        //     },
-        //     body: JSON.stringify({query: mutation})
-        // }).then(res => {
-        // return res.json();
-        // }).then(json => {
-        // console.log(json)
-        // })
+        const mutation = `mutation {
+            postToMedium(
+              userID:"1e0249d6b472fc760dd1ef02054b9543b046a283d64827ac3751cb861f3e35e12",
+              title:"takeshape test 3",
+              contentFormat:"markdown",
+              content:"#Testing! <br />*testing*",
+              publishStatus:"public",
+            ) {
+               data {
+                    id
+                    title
+                }
+            }
+        }`
+
+        fetch('https://api.takeshape.io/project/187e885f-95e2-4e30-a3e9-dc57dbd8ef1c/v3/graphql', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 9906a5609aad434897fd022f5edb5bd0'
+            },
+            body: JSON.stringify({query: mutation})
+        }).then(res => {
+            return res.json();
+        }).then(json => {
+            console.log(json)
+        })
 
         textRef.current.value = props.prev.text.current
         titleRef.current.value = props.prev.title.current
